@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="bXkiil" name="Flux Lab" projectType="audioplug" useAppConfig="0"
+              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyName="Nierika"
+              companyWebsite="https://nierika.art" companyEmail="sebastien.halbeher@nierika.art"
+              pluginCode="Snbx" pluginManufacturerCode="NRKA" headerPath="../../Include;../../Assets;"
+              binaryDataNamespace="BinaryData" pluginName="Flux Lab" bundleIdentifier="com.nierika.fluxlab"
+              aaxIdentifier="com.nierika.fluxlab" cppLanguageStandard="20">
+  <MAINGROUP id="HjU5Uv" name="Flux Lab">
+    <GROUP id="{99FAAF9F-3FEE-7EE9-D50F-BD57CD5672EE}" name="Assets">
+      <GROUP id="{CEDC362F-7C87-7A10-4B63-4DBAC3C6BED8}" name="Icons">
+        <FILE id="uT6Whg" name="ArrowDown.svg" compile="0" resource="1" file="Assets/Icons/ArrowDown.svg"/>
+        <FILE id="rozY4q" name="ArrowUp.svg" compile="0" resource="1" file="Assets/Icons/ArrowUp.svg"/>
+        <FILE id="ZynnAR" name="Boxes.svg" compile="0" resource="1" file="Assets/Icons/Boxes.svg"/>
+        <FILE id="RrUhbG" name="Info.svg" compile="0" resource="1" file="Assets/Icons/Info.svg"/>
+        <FILE id="bGkIW9" name="Link.svg" compile="0" resource="1" file="Assets/Icons/Link.svg"/>
+        <FILE id="iTGoeE" name="Minus.svg" compile="0" resource="1" file="Assets/Icons/Minus.svg"/>
+        <FILE id="fgBM9L" name="Note.svg" compile="0" resource="1" file="Assets/Icons/Note.svg"/>
+        <FILE id="jRKu5P" name="PingPong.svg" compile="0" resource="1" file="Assets/Icons/PingPong.svg"/>
+        <FILE id="iaKYgq" name="Plus.svg" compile="0" resource="1" file="Assets/Icons/Plus.svg"/>
+        <FILE id="nxaOND" name="PowerOfficon.svg" compile="0" resource="1"
+              file="Assets/Icons/PowerOfficon.svg"/>
+      </GROUP>
+      <GROUP id="{16118D42-53F3-0CBC-67B7-72346E57BE1C}" name="Fonts">
+        <FILE id="p8NYWo" name="Brandon_bld.otf" compile="0" resource="1" file="Assets/Fonts/Brandon_bld.otf"/>
+        <FILE id="TFwDal" name="Brandon_light.otf" compile="0" resource="1"
+              file="Assets/Fonts/Brandon_light.otf"/>
+        <FILE id="ygeBUb" name="Brandon_med.otf" compile="0" resource="1" file="Assets/Fonts/Brandon_med.otf"/>
+        <FILE id="GvM5Bq" name="Brandon_reg.otf" compile="0" resource="1" file="Assets/Fonts/Brandon_reg.otf"/>
+        <FILE id="hQpna6" name="Brandon_thin.otf" compile="0" resource="1"
+              file="Assets/Fonts/Brandon_thin.otf"/>
+      </GROUP>
+    </GROUP>
+    <GROUP id="{FCD45E3B-F4D7-7C4E-A9F7-5BBFBE0313EB}" name="Include">
+      <GROUP id="{36D9D9A3-26BF-F377-532A-FDAB169B9317}" name="Component">
+        <GROUP id="{E9CDB3D9-0F6B-ECC7-2F24-25C45957E68D}" name="Section">
+          <FILE id="KDnUfv" name="BPMDisplay.h" compile="0" resource="0" file="Include/Component/Section/BPMDisplay.h"/>
+          <FILE id="jbZBMc" name="Reverb.h" compile="0" resource="0" file="Include/Component/Section/Reverb.h"/>
+          <FILE id="LHtoyL" name="SectionIDs.h" compile="0" resource="0" file="Include/Component/Section/SectionIDs.h"/>
+          <FILE id="WMx1tF" name="Test.h" compile="0" resource="0" file="Include/Component/Section/Test.h"/>
+        </GROUP>
+        <FILE id="zkCruv" name="FXGrid.h" compile="0" resource="0" file="Include/Component/FXGrid.h"/>
+        <FILE id="jsVJR3" name="TempoSection.h" compile="0" resource="0" file="Include/Component/TempoSection.h"/>
+      </GROUP>
+      <FILE id="xJeUqE" name="AppLayout.h" compile="0" resource="0" file="Include/AppLayout.h"/>
+      <FILE id="jU3MY8" name="FFT.h" compile="0" resource="0" file="Include/FFT.h"/>
+      <FILE id="HycGG2" name="FluxCalculator.h" compile="0" resource="0"
+            file="Include/FluxCalculator.h"/>
+      <FILE id="E1vWyk" name="NoteLogger.h" compile="0" resource="0" file="Include/NoteLogger.h"/>
+      <FILE id="suNeGf" name="OBTAINBeatTracker.h" compile="0" resource="0"
+            file="Include/OBTAINBeatTracker.h"/>
+      <FILE id="CVUNnl" name="Parameters.h" compile="0" resource="0" file="Include/Parameters.h"/>
+      <FILE id="W5WSSf" name="PluginEditor.h" compile="0" resource="0" file="Include/PluginEditor.h"/>
+      <FILE id="oB6Tp3" name="PluginProcessor.h" compile="0" resource="0"
+            file="Include/PluginProcessor.h"/>
+    </GROUP>
+    <GROUP id="{C3832E0A-879B-D405-CF2B-C40B02249F72}" name="Source">
+      <FILE id="jciayU" name="AppLayout.cpp" compile="1" resource="0" file="Source/AppLayout.cpp"/>
+      <FILE id="H9KfOl" name="OBTAINBeatTracker.cpp" compile="1" resource="0"
+            file="Source/OBTAINBeatTracker.cpp"/>
+      <FILE id="ZJlHHe" name="FFT.cpp" compile="1" resource="0" file="Source/FFT.cpp"/>
+      <FILE id="A1bPsq" name="FluxCalculator.cpp" compile="1" resource="0"
+            file="Source/FluxCalculator.cpp"/>
+      <GROUP id="{2FFFA789-A02D-09DD-19A6-573323DE7EDE}" name="Component">
+        <GROUP id="{CAE09F9B-A34E-E239-3403-18CBE6717448}" name="Section">
+          <FILE id="cPrDX4" name="BPMDisplay.cpp" compile="1" resource="0" file="Source/Component/Section/BPMDisplay.cpp"/>
+          <FILE id="GTp0I9" name="Reverb.cpp" compile="1" resource="0" file="Source/Component/Section/Reverb.cpp"/>
+          <FILE id="q4oGSr" name="Test.cpp" compile="1" resource="0" file="Source/Component/Section/Test.cpp"/>
+        </GROUP>
+        <FILE id="bk8Zsm" name="FXGrid.cpp" compile="1" resource="0" file="Source/Component/FXGrid.cpp"/>
+        <FILE id="v839kQ" name="TempoSection.cpp" compile="1" resource="0"
+              file="Source/Component/TempoSection.cpp"/>
+      </GROUP>
+      <FILE id="NgAlVi" name="PluginProcessor.cpp" compile="1" resource="0"
+            file="Source/PluginProcessor.cpp"/>
+      <FILE id="UAe1O9" name="PluginEditor.cpp" compile="1" resource="0"
+            file="Source/PluginEditor.cpp"/>
+    </GROUP>
+  </MAINGROUP>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
+            useGlobalPath="0"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="nierika_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+  </MODULES>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" headerPath="../../Include;"/>
+        <CONFIGURATION isDebug="0" name="Release" headerPath="../../Include;"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="../../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../libraries/JUCE/modules"/>
+        <MODULEPATH id="nierika_dsp" path="../../../Repos"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+    <XCODE_IPHONE targetFolder="Builds/iOS" iosScreenOrientation="UIInterfaceOrientationLandscapeLeft,UIInterfaceOrientationLandscapeRight"
+                  iPadScreenOrientation="UIInterfaceOrientationLandscapeLeft,UIInterfaceOrientationLandscapeRight"
+                  microphonePermissionNeeded="1">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug"/>
+        <CONFIGURATION isDebug="0" name="Release"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="../../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../libraries/JUCE/modules"/>
+        <MODULEPATH id="nierika_dsp" path="../../../Repos"/>
+      </MODULEPATHS>
+    </XCODE_IPHONE>
+  </EXPORTFORMATS>
+</JUCERPROJECT>

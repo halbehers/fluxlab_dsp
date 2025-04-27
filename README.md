@@ -1,2 +1,2 @@
-# fluxlab_dsp
-Flux Lab - FX VST &amp; iOS App
+# sandbox-plugin
+A Sandbox VST Plugin in C++
