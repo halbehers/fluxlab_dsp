@@ -25,14 +25,78 @@ NoteAudioProcessor::~NoteAudioProcessor()
 juce::AudioProcessorValueTreeState::ParameterLayout NoteAudioProcessor::getParameterLayout()
 {
     // General.
-    registerParameter(Parameters::PLUGIN_ENABLED_ID, "Plugin Enabled", Parameters::PLUGIN_ENABLED_DEFAULT, [this](bool value) { _isPluginEnabled = value; }, "Bypass the whole plugin.");
+    registerParameter
+    (
+        Parameters::PLUGIN_ENABLED_ID,
+        "Plugin Enabled",
+        Parameters::PLUGIN_ENABLED_DEFAULT,
+        [this](bool value) { _isPluginEnabled = value; },
+        "Bypass the whole plugin."
+     );
 
     // Reverb.
-    registerParameter(Parameters::REVERB_ENABLED_ID, "Reverb Enabled", Parameters::REVERB_ENABLED_DEFAULT, [this](bool value) { _isReverbEnabled = value; }, "Bypass the reverb.");
-    registerParameter(Parameters::REVERB_SIZE_ID, "Reverb Size", "Size", Parameters::REVERB_SIZE_DEFAULT, 0.f, 1.f, [this](float value) { _reverbSize = value; }, "Reverb's room size.");
-    registerParameter(Parameters::REVERB_WIDTH_ID, "Reverb Width", "Width", Parameters::REVERB_WIDTH_DEFAULT, 0.f, 1.f, [this](float value) { _reverbWidth = value; }, "Reverb's width.");
-    registerParameter(Parameters::REVERB_HPF_ID, "Reverb HPF", "High Pass", Parameters::REVERB_HPF_DEFAULT, 20.f, 20000.f, [this](float value) { _reverbHPF = value; }, "Reverb's high pass filter.");
-    registerParameter(Parameters::REVERB_LPF_ID, "Reverb LPF", "Low Pass", Parameters::REVERB_LPF_DEFAULT, 20.f, 20000.f, [this](float value) { _reverbLPF = value; }, "Reverb's low pass filter.");
+    registerParameter
+    (
+        Parameters::REVERB_ENABLED_ID,
+        "Reverb Enabled",
+        Parameters::REVERB_ENABLED_DEFAULT,
+        [this](bool value) {
+            _reverbDSP.setEnabled(value);
+        },
+        "Bypass the reverb."
+    );
+    registerParameter
+    (
+        Parameters::REVERB_SIZE_ID,
+        "Reverb Size",
+        "Size",
+        Parameters::REVERB_SIZE_DEFAULT,
+        0.f,
+        1.f,
+        [this](float value) {
+            auto parameters = _reverbDSP.getParameters();
+            parameters.roomSize = value;
+            _reverbDSP.setParameters(parameters);
+        },
+        "Reverb's room size."
+    );
+    registerParameter
+    (
+        Parameters::REVERB_WIDTH_ID,
+        "Reverb Width",
+        "Width",
+        Parameters::REVERB_WIDTH_DEFAULT,
+        0.f,
+        1.f,
+        [this](float value) {
+            auto parameters = _reverbDSP.getParameters();
+            parameters.width = value;
+            _reverbDSP.setParameters(parameters);
+        },
+        "Reverb's width."
+    );
+    registerParameter
+    (
+        Parameters::REVERB_HPF_ID,
+        "Reverb HPF",
+        "High Pass",
+        Parameters::REVERB_HPF_DEFAULT,
+        20.f,
+        20000.f,
+        [this](float value) { _reverbHPF = value; },
+        "Reverb's high pass filter."
+    );
+    registerParameter
+    (
+        Parameters::REVERB_LPF_ID,
+        "Reverb LPF",
+        "Low Pass",
+        Parameters::REVERB_LPF_DEFAULT,
+        20.f,
+        20000.f,
+        [this](float value) { _reverbLPF = value; },
+        "Reverb's low pass filter."
+    );
 
     return buildParameterLayout();
 }
@@ -101,12 +165,19 @@ void NoteAudioProcessor::changeProgramName(int index, const juce::String& newNam
 //==============================================================================
 void NoteAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
+    juce::dsp::ProcessSpec spec;
+    spec.sampleRate = sampleRate;
+    spec.maximumBlockSize = samplesPerBlock;
+    spec.numChannels = getMainBusNumOutputChannels();
+
     _beatTracker.prepare(sampleRate);
     
     rmsProcessor.prepare(sampleRate, 0.5f);
     
     leftChannelFifo.prepare(samplesPerBlock);
     rightChannelFifo.prepare(samplesPerBlock);
+    
+    _reverbDSP.prepare(spec);
 }
 
 void NoteAudioProcessor::releaseResources()
@@ -155,22 +226,16 @@ void NoteAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::Mi
     auto* readPtr = buffer.getReadPointer(0);
     int numSamples = buffer.getNumSamples();
 
-    // If you want to pass audio through unchanged, you can do:
-    for (int ch = 0; ch < totalNumInputChannels; ++ch)
-    {
-        auto* in  = buffer.getReadPointer(ch);
-        auto* out = buffer.getWritePointer(ch);
-        for (int i = 0; i < numSamples; ++i)
-            out[i] = in[i]; // pass-through
-    }
-    // or do some DSP...
-
     _beatTracker.processAudioBlock(readPtr, numSamples);
 
     leftChannelFifo.update(buffer);
     rightChannelFifo.update(buffer);
 
     rmsProcessor.process(buffer);
+    
+    juce::dsp::AudioBlock<float> block(buffer);
+    // TODO:
+    _reverbDSP.process(juce::dsp::ProcessContextNonReplacing<float>(block, block));
 }
 
 //==============================================================================

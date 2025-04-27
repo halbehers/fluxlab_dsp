@@ -70,11 +70,11 @@ private:
     int _blockSize = 512;
     
     bool _isPluginEnabled = Parameters::PLUGIN_ENABLED_DEFAULT;
-    bool _isReverbEnabled = Parameters::REVERB_ENABLED_DEFAULT;
-    float _reverbSize = Parameters::REVERB_SIZE_DEFAULT;
-    float _reverbWidth = Parameters::REVERB_WIDTH_DEFAULT;
+
     float _reverbHPF = Parameters::REVERB_HPF_DEFAULT;
     float _reverbLPF = Parameters::REVERB_LPF_DEFAULT;
+    
+    juce::dsp::Reverb _reverbDSP;
 
     juce::AudioProcessorValueTreeState::ParameterLayout getParameterLayout();
     //==============================================================================

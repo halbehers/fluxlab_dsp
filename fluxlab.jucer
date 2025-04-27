@@ -102,20 +102,20 @@
         <CONFIGURATION isDebug="0" name="Release" headerPath="../../Include;"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_audio_basics" path="../../libraries/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="../../libraries/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="../../libraries/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_plugin_client" path="../../libraries/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_processors" path="../../libraries/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_utils" path="../../libraries/JUCE/modules"/>
-        <MODULEPATH id="juce_core" path="../../libraries/JUCE/modules"/>
-        <MODULEPATH id="juce_data_structures" path="../../libraries/JUCE/modules"/>
-        <MODULEPATH id="juce_dsp" path="../../libraries/JUCE/modules"/>
-        <MODULEPATH id="juce_events" path="../../libraries/JUCE/modules"/>
-        <MODULEPATH id="juce_graphics" path="../../libraries/JUCE/modules"/>
-        <MODULEPATH id="juce_gui_basics" path="../../libraries/JUCE/modules"/>
-        <MODULEPATH id="juce_gui_extra" path="../../libraries/JUCE/modules"/>
-        <MODULEPATH id="nierika_dsp" path="../../../Repos"/>
+        <MODULEPATH id="juce_audio_basics" path="../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../libraries/JUCE/modules"/>
+        <MODULEPATH id="nierika_dsp" path="../../Repos"/>
       </MODULEPATHS>
     </XCODE_MAC>
     <XCODE_IPHONE targetFolder="Builds/iOS" iosScreenOrientation="UIInterfaceOrientationLandscapeLeft,UIInterfaceOrientationLandscapeRight"
@@ -126,20 +126,20 @@
         <CONFIGURATION isDebug="0" name="Release"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_audio_basics" path="../../libraries/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="../../libraries/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="../../libraries/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_plugin_client" path="../../libraries/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_processors" path="../../libraries/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_utils" path="../../libraries/JUCE/modules"/>
-        <MODULEPATH id="juce_core" path="../../libraries/JUCE/modules"/>
-        <MODULEPATH id="juce_data_structures" path="../../libraries/JUCE/modules"/>
-        <MODULEPATH id="juce_dsp" path="../../libraries/JUCE/modules"/>
-        <MODULEPATH id="juce_events" path="../../libraries/JUCE/modules"/>
-        <MODULEPATH id="juce_graphics" path="../../libraries/JUCE/modules"/>
-        <MODULEPATH id="juce_gui_basics" path="../../libraries/JUCE/modules"/>
-        <MODULEPATH id="juce_gui_extra" path="../../libraries/JUCE/modules"/>
-        <MODULEPATH id="nierika_dsp" path="../../../Repos"/>
+        <MODULEPATH id="juce_audio_basics" path="../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../libraries/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../libraries/JUCE/modules"/>
+        <MODULEPATH id="nierika_dsp" path="../../Repos"/>
       </MODULEPATHS>
     </XCODE_IPHONE>
   </EXPORTFORMATS>
