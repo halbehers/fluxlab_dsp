@@ -1,7 +1,7 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-NoteAudioProcessorEditor::NoteAudioProcessorEditor(NoteAudioProcessor& p):
+PluginAudioProcessorEditor::PluginAudioProcessorEditor(PluginAudioProcessor& p):
     AudioProcessorEditor(&p),
     audioProcessor(p),
     _stars(800, 600),
@@ -16,16 +16,16 @@ NoteAudioProcessorEditor::NoteAudioProcessorEditor(NoteAudioProcessor& p):
     setResizeLimits(400, 500, 5000, 5000);
 }
 
-NoteAudioProcessorEditor::~NoteAudioProcessorEditor()
+PluginAudioProcessorEditor::~PluginAudioProcessorEditor()
 {
 }
 
-void NoteAudioProcessorEditor::setBypass(bool isBypassed)
+void PluginAudioProcessorEditor::setBypass(bool isBypassed)
 {
     _layout.setBypass(isBypassed);
 }
 
-void NoteAudioProcessorEditor::paint(juce::Graphics& g)
+void PluginAudioProcessorEditor::paint(juce::Graphics& g)
 {
     juce::Colour primaryColor = nui::Theme::getInstance().getColor(nui::Theme::PRIMARY).asJuce();
     juce::Colour darkShadeColor = nui::Theme::getInstance().getColor(nui::Theme::DARK_SHADE).asJuce();
@@ -33,7 +33,7 @@ void NoteAudioProcessorEditor::paint(juce::Graphics& g)
     g.fillAll();
 }
 
-void NoteAudioProcessorEditor::resized()
+void PluginAudioProcessorEditor::resized()
 {
     _stars.setBounds(0, 0, getWidth(), getHeight());
     _layout.setBounds(getLocalBounds());

@@ -10,7 +10,7 @@ namespace component::section
 class BPMDisplay : public nui::Section, juce::Timer
 {
 public:
-    BPMDisplay(std::string identifier, ndsp::ParameterManager& parameterManager, NoteAudioProcessor& audioProcessor);
+    BPMDisplay(std::string identifier, ndsp::ParameterManager& parameterManager, PluginAudioProcessor& audioProcessor);
     ~BPMDisplay() override;
 
     void paint(juce::Graphics&) override;
@@ -19,7 +19,7 @@ public:
     void timerCallback() override;
 
 private:
-    NoteAudioProcessor& _audioProcessor;
+    PluginAudioProcessor& _audioProcessor;
     double _bpm = 120.0;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BPMDisplay)

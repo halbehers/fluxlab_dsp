@@ -1,8 +1,8 @@
 #include "AppLayout.h"
 #include "Component/Section/SectionIDs.h"
 
-AppLayout::AppLayout(ndsp::ParameterManager& parameterManager, NoteAudioProcessor& audioProcessor):
-    nlayout::AppLayout(parameterManager),
+AppLayout::AppLayout(ndsp::ParameterManager& parameterManager, PluginAudioProcessor& audioProcessor):
+    nlayout::AppLayout(parameterManager, Parameters::PLUGIN_ENABLED_ID),
     _audioLevels("audio-levels", audioProcessor.rmsProcessor),
     _audioSpectrum("audio-spectrum", audioProcessor, &audioProcessor.leftChannelFifo, &audioProcessor.rightChannelFifo),
     _tempoSection("tempo-section", parameterManager, audioProcessor),
@@ -10,7 +10,6 @@ AppLayout::AppLayout(ndsp::ParameterManager& parameterManager, NoteAudioProcesso
     _fxGrid(audioProcessor),
     _footer("footer", parameterManager)
 {
-    setBypassable(true);
     
     getLayout().setGap(16.f);
     getLayout().setDisplayGrid(false);

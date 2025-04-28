@@ -11,7 +11,7 @@
 class AppLayout : public nlayout::AppLayout
 {
 public:
-    AppLayout(ndsp::ParameterManager& parameterManager, NoteAudioProcessor& audioProcessor);
+    AppLayout(ndsp::ParameterManager& parameterManager, PluginAudioProcessor& audioProcessor);
     ~AppLayout() override;
     
     void bypassComponents(bool isBypassed) override;

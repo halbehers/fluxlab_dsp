@@ -4,11 +4,11 @@
 #include "PluginProcessor.h"
 #include "AppLayout.h"
 
-class NoteAudioProcessorEditor : public juce::AudioProcessorEditor
+class PluginAudioProcessorEditor : public juce::AudioProcessorEditor
 {
 public:
-    NoteAudioProcessorEditor(NoteAudioProcessor&);
-    ~NoteAudioProcessorEditor() override;
+    PluginAudioProcessorEditor(PluginAudioProcessor&);
+    ~PluginAudioProcessorEditor() override;
 
     //==============================================================================
     void paint(juce::Graphics&) override;
@@ -18,11 +18,11 @@ public:
     void setBypass(bool isBypassed);
 
 private:
-    NoteAudioProcessor& audioProcessor;
+    PluginAudioProcessor& audioProcessor;
 
     nelement::Stars _stars;
 
     AppLayout _layout;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(NoteAudioProcessorEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PluginAudioProcessorEditor)
 };

@@ -1,10 +1,10 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 #include "Parameters.h"
-#include "NoteLogger.h"
+#include "AppLogger.h"
 #include "Component/Section/SectionIDs.h"
 
-NoteAudioProcessor::NoteAudioProcessor()
+PluginAudioProcessor::PluginAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
      : AudioProcessor (BusesProperties()
                      #if ! JucePlugin_IsMidiEffect
@@ -18,11 +18,11 @@ NoteAudioProcessor::NoteAudioProcessor()
 {
 }
 
-NoteAudioProcessor::~NoteAudioProcessor()
+PluginAudioProcessor::~PluginAudioProcessor()
 {
 }
 
-juce::AudioProcessorValueTreeState::ParameterLayout NoteAudioProcessor::getParameterLayout()
+juce::AudioProcessorValueTreeState::ParameterLayout PluginAudioProcessor::getParameterLayout()
 {
     // General.
     registerParameter
@@ -41,7 +41,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout NoteAudioProcessor::getParam
         "Reverb Enabled",
         Parameters::REVERB_ENABLED_DEFAULT,
         [this](bool value) {
-            _reverbDSP.setEnabled(value);
+            _reverbProcess.setEnabled(value);
         },
         "Bypass the reverb."
     );
@@ -54,9 +54,9 @@ juce::AudioProcessorValueTreeState::ParameterLayout NoteAudioProcessor::getParam
         0.f,
         1.f,
         [this](float value) {
-            auto parameters = _reverbDSP.getParameters();
+            auto parameters = _reverbProcess.getParameters();
             parameters.roomSize = value;
-            _reverbDSP.setParameters(parameters);
+            _reverbProcess.setParameters(parameters);
         },
         "Reverb's room size."
     );
@@ -69,9 +69,9 @@ juce::AudioProcessorValueTreeState::ParameterLayout NoteAudioProcessor::getParam
         0.f,
         1.f,
         [this](float value) {
-            auto parameters = _reverbDSP.getParameters();
+            auto parameters = _reverbProcess.getParameters();
             parameters.width = value;
-            _reverbDSP.setParameters(parameters);
+            _reverbProcess.setParameters(parameters);
         },
         "Reverb's width."
     );
@@ -101,12 +101,12 @@ juce::AudioProcessorValueTreeState::ParameterLayout NoteAudioProcessor::getParam
     return buildParameterLayout();
 }
 
-const juce::String NoteAudioProcessor::getName() const
+const juce::String PluginAudioProcessor::getName() const
 {
     return JucePlugin_Name;
 }
 
-bool NoteAudioProcessor::acceptsMidi() const
+bool PluginAudioProcessor::acceptsMidi() const
 {
    #if JucePlugin_WantsMidiInput
     return true;
@@ -115,7 +115,7 @@ bool NoteAudioProcessor::acceptsMidi() const
    #endif
 }
 
-bool NoteAudioProcessor::producesMidi() const
+bool PluginAudioProcessor::producesMidi() const
 {
    #if JucePlugin_ProducesMidiOutput
     return true;
@@ -124,7 +124,7 @@ bool NoteAudioProcessor::producesMidi() const
    #endif
 }
 
-bool NoteAudioProcessor::isMidiEffect() const
+bool PluginAudioProcessor::isMidiEffect() const
 {
    #if JucePlugin_IsMidiEffect
     return true;
@@ -133,61 +133,63 @@ bool NoteAudioProcessor::isMidiEffect() const
    #endif
 }
 
-double NoteAudioProcessor::getTailLengthSeconds() const
+double PluginAudioProcessor::getTailLengthSeconds() const
 {
     return 0.0;
 }
 
-int NoteAudioProcessor::getNumPrograms()
+int PluginAudioProcessor::getNumPrograms()
 {
     return 1;   // NB: some hosts don't cope very well if you tell them there are 0 programs,
                 // so this should be at least 1, even if you're not really implementing programs.
 }
 
-int NoteAudioProcessor::getCurrentProgram()
+int PluginAudioProcessor::getCurrentProgram()
 {
     return 0;
 }
 
-void NoteAudioProcessor::setCurrentProgram(int index)
+void PluginAudioProcessor::setCurrentProgram(int index)
 {
 }
 
-const juce::String NoteAudioProcessor::getProgramName(int index)
+const juce::String PluginAudioProcessor::getProgramName(int index)
 {
     return {};
 }
 
-void NoteAudioProcessor::changeProgramName(int index, const juce::String& newName)
+void PluginAudioProcessor::changeProgramName(int index, const juce::String& newName)
 {
 }
 
 //==============================================================================
-void NoteAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
+void PluginAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
     juce::dsp::ProcessSpec spec;
     spec.sampleRate = sampleRate;
     spec.maximumBlockSize = samplesPerBlock;
     spec.numChannels = getMainBusNumOutputChannels();
 
+    // Beat Tracking.
     _beatTracker.prepare(sampleRate);
-    
+
+    // Audio Visualization.
     rmsProcessor.prepare(sampleRate, 0.5f);
-    
     leftChannelFifo.prepare(samplesPerBlock);
     rightChannelFifo.prepare(samplesPerBlock);
-    
-    _reverbDSP.prepare(spec);
+
+    // Audio FX.
+    _reverbProcess.prepare(spec);
 }
 
-void NoteAudioProcessor::releaseResources()
+void PluginAudioProcessor::releaseResources()
 {
     // When playback stops, you can use this as an opportunity to free up any
     // spare memory, etc.
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
-bool NoteAudioProcessor::isBusesLayoutSupported(const BusesLayout& layouts) const
+bool PluginAudioProcessor::isBusesLayoutSupported(const BusesLayout& layouts) const
 {
   #if JucePlugin_IsMidiEffect
     juce::ignoreUnused (layouts);
@@ -212,7 +214,7 @@ bool NoteAudioProcessor::isBusesLayoutSupported(const BusesLayout& layouts) cons
 }
 #endif
 
-void NoteAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
+void PluginAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
     juce::ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
@@ -233,29 +235,31 @@ void NoteAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::Mi
 
     rmsProcessor.process(buffer);
     
+    if (!_isPluginEnabled) return;
+    
     juce::dsp::AudioBlock<float> block(buffer);
-    // TODO:
-    _reverbDSP.process(juce::dsp::ProcessContextNonReplacing<float>(block, block));
+
+    _reverbProcess.process(juce::dsp::ProcessContextReplacing<float>(block));
 }
 
 //==============================================================================
-bool NoteAudioProcessor::hasEditor() const
+bool PluginAudioProcessor::hasEditor() const
 {
     return true; // (change this to false if you choose to not supply an editor)
 }
 
-juce::AudioProcessorEditor* NoteAudioProcessor::createEditor()
+juce::AudioProcessorEditor* PluginAudioProcessor::createEditor()
 {
-    return new NoteAudioProcessorEditor(*this);
+    return new PluginAudioProcessorEditor(*this);
 }
 
 //==============================================================================
-void NoteAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
+void PluginAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
     ndsp::ParameterManager::getStateInformation(destData);
 }
 
-void NoteAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
+void PluginAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     ndsp::ParameterManager::setStateInformation(data, sizeInBytes);
 }
@@ -264,5 +268,5 @@ void NoteAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 // This creates new instances of the plugin..
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
-    return new NoteAudioProcessor();
+    return new PluginAudioProcessor();
 }

@@ -4,7 +4,7 @@
 namespace component
 {
 
-TempoSection::TempoSection(std::string identifier, ndsp::ParameterManager& parameterManager, NoteAudioProcessor& audioProcessor):
+TempoSection::TempoSection(std::string identifier, ndsp::ParameterManager& parameterManager, PluginAudioProcessor& audioProcessor):
     Section(identifier, parameterManager),
     _audioProcessor(audioProcessor)
 {

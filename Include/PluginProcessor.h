@@ -17,12 +17,12 @@ using BlockType = juce::AudioBuffer<float>;
 //==============================================================================
 /**
 */
-class NoteAudioProcessor : public juce::AudioProcessor, public ndsp::ParameterManager
+class PluginAudioProcessor : public juce::AudioProcessor, public ndsp::ParameterManager
 {
 public:
     //==============================================================================
-    NoteAudioProcessor();
-    ~NoteAudioProcessor() override;
+    PluginAudioProcessor();
+    ~PluginAudioProcessor() override;
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
@@ -74,9 +74,9 @@ private:
     float _reverbHPF = Parameters::REVERB_HPF_DEFAULT;
     float _reverbLPF = Parameters::REVERB_LPF_DEFAULT;
     
-    juce::dsp::Reverb _reverbDSP;
+    juce::dsp::Reverb _reverbProcess;
 
     juce::AudioProcessorValueTreeState::ParameterLayout getParameterLayout();
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (NoteAudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginAudioProcessor)
 };

@@ -87,6 +87,7 @@
 		15CFB4D23F4EBBC237CA4B0F /* FluxCalculator.cpp */ /* FluxCalculator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = FluxCalculator.cpp; path = ../../Source/FluxCalculator.cpp; sourceTree = SOURCE_ROOT; };
 		1764B9ACB3CFC29C71E77CF1 /* juce_graphics */ /* juce_graphics */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_graphics; path = ../../../libraries/JUCE/modules/juce_graphics; sourceTree = SOURCE_ROOT; };
 		1832EA4D28DD6695DBCA769D /* FXGrid.h */ /* FXGrid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FXGrid.h; path = ../../Include/Component/FXGrid.h; sourceTree = SOURCE_ROOT; };
+		1CB5A95C0AD77B27A833CD9D /* AppLogger.h */ /* AppLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppLogger.h; path = ../../Include/AppLogger.h; sourceTree = SOURCE_ROOT; };
 		1CEEC348C5DC0EC1741B3132 /* UniformTypeIdentifiers.framework */ /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
 		20114869D7C027415975BF49 /* include_juce_gui_basics.mm */ /* include_juce_gui_basics.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_gui_basics.mm; path = ../../JuceLibraryCode/include_juce_gui_basics.mm; sourceTree = SOURCE_ROOT; };
 		22820B08479EB6EC7E3A009C /* nierika_dsp */ /* nierika_dsp */ = {isa = PBXFileReference; lastKnownFileType = folder; name = nierika_dsp; path = ../../../nierika_dsp; sourceTree = SOURCE_ROOT; };
@@ -157,7 +158,6 @@
 		C826340188BD5DC9AD92682A /* QuartzCore.framework */ /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C99FE3FE9180766BB085F753 /* include_juce_core.mm */ /* include_juce_core.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_core.mm; path = ../../JuceLibraryCode/include_juce_core.mm; sourceTree = SOURCE_ROOT; };
 		CDEFAEBA4F971897A43994B8 /* Plus.svg */ /* Plus.svg */ = {isa = PBXFileReference; lastKnownFileType = file.svg; name = Plus.svg; path = ../../Assets/Icons/Plus.svg; sourceTree = SOURCE_ROOT; };
-		D0057692AC570EFBD8BABFEE /* NoteLogger.h */ /* NoteLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NoteLogger.h; path = ../../Include/NoteLogger.h; sourceTree = SOURCE_ROOT; };
 		D37B92BA20CEEAF39B32C0F1 /* Foundation.framework */ /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D472FF171C602FA17E8E72FB /* Info.svg */ /* Info.svg */ = {isa = PBXFileReference; lastKnownFileType = file.svg; name = Info.svg; path = ../../Assets/Icons/Info.svg; sourceTree = SOURCE_ROOT; };
 		D5E7B0481029C380492E4F5B /* include_juce_events.mm */ /* include_juce_events.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_events.mm; path = ../../JuceLibraryCode/include_juce_events.mm; sourceTree = SOURCE_ROOT; };
@@ -308,7 +308,7 @@
 				2585A3AC20E044C06DDAAE59,
 				74F34352303EB8031BCA93BF,
 				EFA58EEC8939E3C4BB5E93D6,
-				D0057692AC570EFBD8BABFEE,
+				1CB5A95C0AD77B27A833CD9D,
 				B9D61A982B5D4909554E7E09,
 				42D83DF34D3A6538BB962F8D,
 				E8E4028F3335B204E5F0FBD5,

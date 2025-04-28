@@ -46,7 +46,7 @@
       <FILE id="jU3MY8" name="FFT.h" compile="0" resource="0" file="Include/FFT.h"/>
       <FILE id="HycGG2" name="FluxCalculator.h" compile="0" resource="0"
             file="Include/FluxCalculator.h"/>
-      <FILE id="E1vWyk" name="NoteLogger.h" compile="0" resource="0" file="Include/NoteLogger.h"/>
+      <FILE id="E1vWyk" name="AppLogger.h" compile="0" resource="0" file="Include/AppLogger.h"/>
       <FILE id="suNeGf" name="OBTAINBeatTracker.h" compile="0" resource="0"
             file="Include/OBTAINBeatTracker.h"/>
       <FILE id="CVUNnl" name="Parameters.h" compile="0" resource="0" file="Include/Parameters.h"/>

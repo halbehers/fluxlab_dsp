@@ -4,7 +4,7 @@
 namespace component::section
 {
 
-BPMDisplay::BPMDisplay(std::string identifier, ndsp::ParameterManager& parameterManager, NoteAudioProcessor& audioProcessor):
+BPMDisplay::BPMDisplay(std::string identifier, ndsp::ParameterManager& parameterManager, PluginAudioProcessor& audioProcessor):
     Section(identifier, parameterManager),
     _audioProcessor(audioProcessor)
 {
