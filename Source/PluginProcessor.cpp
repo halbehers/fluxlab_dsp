@@ -20,6 +20,7 @@ PluginAudioProcessor::PluginAudioProcessor()
 
 PluginAudioProcessor::~PluginAudioProcessor()
 {
+    clearParameters();
 }
 
 juce::AudioProcessorValueTreeState::ParameterLayout PluginAudioProcessor::getParameterLayout()
@@ -96,6 +97,17 @@ juce::AudioProcessorValueTreeState::ParameterLayout PluginAudioProcessor::getPar
         20000.f,
         [this](float value) { _reverbLPF = value; },
         "Reverb's low pass filter."
+    );
+    registerParameter
+    (
+        Parameters::REVERB_DRY_WET_ID,
+        "Reverb Dry/Wet",
+        "Dry/Wet",
+        Parameters::REVERB_DRY_WET_DEFAULT,
+        20.f,
+        20000.f,
+        [this](float value) {},
+        "Reverb's dry / wet mix."
     );
 
     return buildParameterLayout();

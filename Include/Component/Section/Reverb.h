@@ -20,6 +20,7 @@ private:
     element::PercentageDial _width;
     element::FrequencyDial _highPass;
     element::FrequencyDial _lowPass;
+    element::PercentageDial _dryWet;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Reverb)
 };

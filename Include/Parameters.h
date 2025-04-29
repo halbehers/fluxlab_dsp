@@ -17,4 +17,6 @@ struct Parameters
     static constexpr float REVERB_HPF_DEFAULT = 120.f;
     static constexpr std::string REVERB_LPF_ID = "reverb-lpf";
     static constexpr float REVERB_LPF_DEFAULT = 10000.f;
+    static constexpr std::string REVERB_DRY_WET_ID = "reverb-dry-wet";
+    static constexpr float REVERB_DRY_WET_DEFAULT = 0.f;
 };
