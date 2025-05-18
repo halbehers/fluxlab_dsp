@@ -12,6 +12,7 @@ set(FORMATS Standalone AU VST3 AUv3)
 
 set(CMAKE_CXX_STANDARD 20)
 set(JUCE_VERSION 8.0.7)
+set(NIERIKA_DSP_VERSION 8.0.7)
 set(INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Include")
 set(SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Source")
 set(CMAKE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/CMake")
@@ -35,6 +36,14 @@ cpmaddpackage(
         VERSION ${JUCE_VERSION}
         GITHUB_REPOSITORY juce-framework/JUCE
         SOURCE_DIR ${LIB_DIR}/juce
+)
+
+cpmaddpackage(
+        NAME NIERIKA_DSP
+        GIT_TAG "v${NIERIKA_DSP_VERSION}"
+        VERSION ${NIERIKA_DSP_VERSION}
+        GITHUB_REPOSITORY halbehers/nierika_dsp
+        SOURCE_DIR ${LIB_DIR}/nierika_dsp
 )
 
 include(${CMAKE_DIR}/warnings.cmake)
