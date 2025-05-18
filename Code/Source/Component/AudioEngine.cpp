@@ -46,15 +46,13 @@ void AudioEngine::addProcess(const std::string& identifier, AudioProcess& proces
 
 void AudioEngine::moveProcess(const std::string& identifier, int newPosition)
 {
-    if (newPosition < 0 || newPosition >= _processes.size())
+    if (newPosition < 0 || newPosition >= static_cast<int>(_processes.size()))
     {
         nutils::AppLogger::get().error("Position out of range", "AudioEngine::moveProcess");
         throw std::out_of_range("AudioEngine::moveProcess: position out of range");
     }
 
-    const int position = getPosition(identifier);
-    
-    if (position != -1)
+    if (const int position = getPosition(identifier); position != -1)
     {
         std::iter_swap(_processes.begin() + position, _processes.begin() + newPosition);
     }
@@ -85,31 +83,31 @@ int AudioEngine::count() const
 
 int AudioEngine::getPosition(const std::string& identifier) const
 {
-    for (int i = 0; i < _processes.size(); ++i)
+    for (std::size_t i = 0; i < _processes.size(); ++i)
     {
         if (_processes[i]->identifier == identifier)
-            return i;
+            return static_cast<int>(i);
     }
     return -1;
 }
 
 std::string AudioEngine::getIdentifier(int position) const
 {
-    if (position < 0 || position >= _processes.size())
+    if (position < 0 || position >= static_cast<int>(_processes.size()))
         return "";
 
-    return _processes[position]->identifier;
+    return _processes[static_cast<std::size_t>(position)]->identifier;
 }
 
 const AudioProcess& AudioEngine::getAudioProcess(int position) const
 {
-    if (position < 0 || position >= _processes.size())
+    if (position < 0 || position >= static_cast<int>(_processes.size()))
     {
         nutils::AppLogger::get().error("Position out of range", "AudioEngine::getAudioProcess");
         throw std::out_of_range("AudioEngine::getAudioProcess: position out of range");
     }
 
-    return _processes[position]->audioProcess;
+    return _processes[static_cast<std::size_t>(position)]->audioProcess;
 }
 
 }

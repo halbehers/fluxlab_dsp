@@ -1,5 +1,3 @@
-#pragma once
-
 #include <nierika_dsp/nierika_dsp.h>
 
 nutils::Logger& nutils::AppLogger::get()

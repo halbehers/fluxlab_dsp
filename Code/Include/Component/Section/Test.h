@@ -3,7 +3,7 @@
 #include <nierika_dsp/nierika_dsp.h>
 #include <juce_graphics/juce_graphics.h>
 
-#include "PluginProcessor.h"
+#include "../../PluginProcessor.h"
 
 namespace component::section
 {

@@ -35,7 +35,6 @@
 /*/Builds/
 Builds/
 
-Libs/juce
-Libs/cpm
+Libs/
 
 cmake-build-debug/

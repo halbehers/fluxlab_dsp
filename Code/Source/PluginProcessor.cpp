@@ -105,7 +105,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout PluginAudioProcessor::getPar
         Parameters::REVERB_DRY_WET_DEFAULT,
         20.f,
         20000.f,
-        [this](float value) {},
+        [](float value) { (void) value; },
         "Reverb's dry / wet mix."
     );
 
@@ -162,15 +162,20 @@ int PluginAudioProcessor::getCurrentProgram()
 
 void PluginAudioProcessor::setCurrentProgram(int index)
 {
+    (void) index;
 }
 
 const juce::String PluginAudioProcessor::getProgramName(int index)
 {
+    (void) index;
+
     return {};
 }
 
 void PluginAudioProcessor::changeProgramName(int index, const juce::String& newName)
 {
+    (void) index;
+    (void) newName;
 }
 
 //==============================================================================
@@ -178,8 +183,8 @@ void PluginAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
     juce::dsp::ProcessSpec spec{};
     spec.sampleRate = sampleRate;
-    spec.maximumBlockSize = samplesPerBlock;
-    spec.numChannels = getMainBusNumOutputChannels();
+    spec.maximumBlockSize = static_cast<juce::uint32>(samplesPerBlock);
+    spec.numChannels = static_cast<juce::uint32>(getMainBusNumOutputChannels());
 
     // Beat Tracking.
     _beatTracker.prepare(sampleRate);
@@ -227,6 +232,8 @@ bool PluginAudioProcessor::isBusesLayoutSupported(const BusesLayout& layouts) co
 
 void PluginAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
+    (void) midiMessages;
+
     juce::ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();

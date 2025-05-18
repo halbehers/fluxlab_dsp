@@ -2,7 +2,7 @@
 
 #include <nierika_dsp/nierika_dsp.h>
 #include <juce_events/juce_events.h>
-#include "PluginProcessor.h"
+#include "../PluginProcessor.h"
 
 namespace component
 {

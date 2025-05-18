@@ -12,9 +12,9 @@ set(FORMATS Standalone AU VST3 AUv3)
 
 set(CMAKE_CXX_STANDARD 20)
 set(JUCE_VERSION 8.0.7)
-set(NIERIKA_DSP_VERSION 8.0.7)
-set(INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Include")
-set(SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Source")
+set(NIERIKA_DSP_VERSION 0.1.3)
+set(INCLUDE_DIR "Code/Include")
+set(SOURCE_DIR "Code/Source")
 set(CMAKE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/CMake")
 set(LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Libs")
 
@@ -89,12 +89,12 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
         juce::juce_recommended_config_flags
         juce::juce_recommended_lto_flags
         juce::juce_recommended_warning_flags
+        nierika::nierika_dsp
 )
-target_link_libraries(${PROJECT_NAME} PRIVATE nierika::nierika_dsp)
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 JUCE_VST3_CAN_REPLACE_VST2=0)
 
 # Treat warnings as errors
-# set_source_files_properties(${SOURCE_FILES} PROPERTIES COMPILE_OPTIONS "${PROJECT_WARNINGS_CXX}")
+set_source_files_properties(${SOURCE_FILES} PROPERTIES COMPILE_OPTIONS "${PROJECT_WARNINGS_CXX}")
 
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/..)

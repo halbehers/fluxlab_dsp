@@ -1,4 +1,4 @@
-#include "ObtainBeatTracker.h"
+#include "OBTAINBeatTracker.h"
 
 #include "FluxCalculator.h"
 #include "FFT.h"
@@ -14,10 +14,10 @@ namespace dsp
 // A small helper to produce a Hamming window of specified length
 static std::vector<double> makeHammingWindow(int length)
 {
-    std::vector<double> w(length);
-    const double twoPi = juce::MathConstants<double>::twoPi;
-    for (int i = 0; i < length; ++i)
-        w[i] = 0.54 - 0.46 * std::cos(twoPi * i / (length - 1.0));
+    std::vector<double> w(static_cast<std::size_t>(length));
+    constexpr double twoPi = juce::MathConstants<double>::twoPi;
+    for (std::size_t i = 0; i < static_cast<std::size_t>(length); ++i)
+        w[i] = 0.54 - 0.46 * std::cos(twoPi * static_cast<double>(i) / (length - 1.0));
     return w;
 }
 
@@ -30,15 +30,15 @@ void OBTAINBeatTracker::prepare(double sampleRate, int fftSize, int hopSize)
     FFTSize = fftSize;
     HopSize = hopSize;
 
-    frameBuffer.resize(FFTSize, 0.0f);
+    frameBuffer.resize(static_cast<std::size_t>(FFTSize), 0.0f);
     frameWritePos = 0;
 
     // Initialize the previous log spectrum to zeros
-    previousLogSpec.assign(FFTSize / 2, 0.0);
+    previousLogSpec.assign(static_cast<std::size_t>(FFTSize / 2), 0.0);
 
     // Initialize the ring buffer for the last 256 OSS frames (for tempo)
     ossHistory.clear();
-    ossHistory.resize(OSSBufferLength, 0.0);
+    ossHistory.resize(static_cast<std::size_t>(OSSBufferLength), 0.0);
     ossWritePos = 0;
     ossCount = 0;
 
@@ -74,7 +74,7 @@ void OBTAINBeatTracker::processAudioBlock(const float* input, int numSamples)
     for (int i = 0; i < numSamples; ++i)
     {
         // Overlap-add approach: accumulate until we have FFTSize samples
-        frameBuffer[frameWritePos++] = input[i];
+        frameBuffer[static_cast<std::size_t>(frameWritePos++)] = input[i];
 
         if (frameWritePos >= FFTSize)
         {
@@ -85,7 +85,7 @@ void OBTAINBeatTracker::processAudioBlock(const float* input, int numSamples)
             double finalOSS = smoothFlux(rawFluxVal);
 
             // 3) Store that OSS in a ring buffer for tempo analysis
-            ossHistory[ossWritePos] = finalOSS;
+            ossHistory[static_cast<std::size_t>(ossWritePos)] = finalOSS;
             ossWritePos = (ossWritePos + 1) % OSSBufferLength;
             if (ossCount < OSSBufferLength)
                 ossCount++;
@@ -116,7 +116,7 @@ void OBTAINBeatTracker::processAudioBlock(const float* input, int numSamples)
             // Overlap shift for next frame
             const int shiftSize = FFTSize - HopSize;
             for (int j = 0; j < shiftSize; ++j)
-                frameBuffer[j] = frameBuffer[j + HopSize];
+                frameBuffer[static_cast<std::size_t>(j)] = frameBuffer[static_cast<std::size_t>(j + HopSize)];
             frameWritePos = shiftSize;
         }
     }
@@ -129,9 +129,9 @@ void OBTAINBeatTracker::processAudioBlock(const float* input, int numSamples)
 double OBTAINBeatTracker::computeFluxOSS(const std::vector<float>& frame)
 {
     // 1) Build real and imag buffer for FFT
-    std::vector<double> re(FFTSize), im(FFTSize, 0.0);
-    for (int i = 0; i < FFTSize; ++i)
-        re[i] = (double) frame[i];
+    std::vector<double> re(static_cast<std::size_t>(FFTSize)), im(static_cast<std::size_t>(FFTSize), 0.0);
+    for (std::size_t i = 0; i < static_cast<std::size_t>(FFTSize); ++i)
+        re[i] = static_cast<double>(frame[i]);
 
     // 1a) Optional: apply a window to the frame (e.g., Hamming)
     // ...
@@ -141,12 +141,12 @@ double OBTAINBeatTracker::computeFluxOSS(const std::vector<float>& frame)
     calculations::performFFT(re, im, false);
 
     // 3) Convert to magnitude. We only need half the spectrum (0..FFTSize/2-1)
-    int halfN = FFTSize / 2;
+    const auto halfN = static_cast<std::size_t>(FFTSize / 2);
     std::vector<double> mag(halfN, 0.0);
-    for (int i = 0; i < halfN; ++i)
+    for (std::size_t i = 0; i < halfN; ++i)
     {
-        double rr = re[i];
-        double ii = im[i];
+        const double rr = re[i];
+        const double ii = im[i];
         mag[i] = std::sqrt(rr*rr + ii*ii);
     }
 
@@ -175,22 +175,22 @@ double OBTAINBeatTracker::smoothFlux(double rawFluxVal)
 {
     // push the raw flux into a small ring buffer
     fluxFifo.push_back(rawFluxVal);
-    if ((int)fluxFifo.size() > FluxFilterLength)
+    if (static_cast<int>(fluxFifo.size()) > FluxFilterLength)
         fluxFifo.pop_front();
 
     // If we don't yet have enough data, just return the raw flux
-    if ((int)fluxFifo.size() < FluxFilterLength)
+    if (static_cast<int>(fluxFifo.size()) < FluxFilterLength)
         return rawFluxVal;
 
     // Convolve with the length=15 Hamming
     double sumVal = 0.0;
-    for (int i = 0; i < FluxFilterLength; ++i)
+    for (std::size_t i = 0; i < static_cast<std::size_t>(FluxFilterLength); ++i)
         sumVal += fluxFifo[i] * hammingWindow[i];
 
     // You can scale by sum of window if you want an exact match
     double norm = 0.0;
-    for (auto x : hammingWindow) norm += x;
-    double result = sumVal / norm;
+    for (const auto x : hammingWindow) norm += x;
+    const double result = sumVal / norm;
 
     return result;
 }
@@ -214,49 +214,48 @@ double OBTAINBeatTracker::estimateTempo()
 
     // Gather up to 256 frames from ossHistory, starting from (ossWritePos - 1) going backward
     const int length = std::min(OSSBufferLength, ossCount);
-    std::vector<double> windowedOSS(length);
+    std::vector<double> windowedOSS(static_cast<std::size_t>(length));
     // fill in from oldest to newest or vice versa
     // We'll choose newest at the end so the indexing is consistent
     for (int i = 0; i < length; ++i)
     {
         // index from end
-        int idx = (ossWritePos - length + i + OSSBufferLength) % OSSBufferLength;
-        windowedOSS[i] = ossHistory[idx];
+        const int idx = (ossWritePos - length + i + OSSBufferLength) % OSSBufferLength;
+        windowedOSS[static_cast<std::size_t>(i)] = ossHistory[static_cast<std::size_t>(idx)];
     }
 
     // 1) Autocorrelation
-    std::vector<double> acf(length, 0.0);
+    std::vector<double> acf(static_cast<std::size_t>(length), 0.0);
     for (int lag = 0; lag < length; ++lag)
     {
         double sum = 0.0;
         for (int t = 0; t < length - lag; ++t)
-            sum += windowedOSS[t] * windowedOSS[t + lag];
-        acf[lag] = sum;
+            sum += windowedOSS[static_cast<std::size_t>(t)] * windowedOSS[static_cast<std::size_t>(t + lag)];
+        acf[static_cast<std::size_t>(lag)] = sum;
     }
 
     // 2) (Optional) "Enhance" harmonics in acf
     //    E.g. you could do a difference of median. We'll omit for brevity.
 
     // 3) Find candidate peaks in acf that map to BPM in [minBPM, maxBPM]
-    double minBPM = 60.0;
-    double maxBPM = 200.0;
-    double framesPerSec = (currentSampleRate / (double)HopSize);
+    const double framesPerSec = (currentSampleRate / (double)HopSize);
     // The lag corresponds to a BPM => BPM = 60 / (lag/framesPerSec)
     // => lag = 60 * framesPerSec / BPM
     // We'll store them in a vector of (acfVal, BPM).
     std::vector<std::pair<double,double>> candidates;
     for (int lag = 1; lag < length; ++lag)
     {
+        constexpr double maxBPM = 200.0;
         // BPM from this lag
         double bpm = 60.0 * framesPerSec / (double)lag;
-        if (bpm >= minBPM && bpm <= maxBPM)
+        if (constexpr double minBPM = 60.0; bpm >= minBPM && bpm <= maxBPM)
         {
             // Check if this is a local peak
-            double val = acf[lag];
+            double val = acf[static_cast<std::size_t>(lag)];
             // We'll do a small neighborhood check
             if (lag > 0 && lag < length - 1)
             {
-                if (acf[lag] > acf[lag - 1] && acf[lag] > acf[lag + 1])
+                if (acf[static_cast<std::size_t>(lag)] > acf[static_cast<std::size_t>(lag - 1)] && acf[static_cast<std::size_t>(lag)] > acf[static_cast<std::size_t>(lag + 1)])
                 {
                     // It's a local peak
                     candidates.emplace_back(val, bpm);
@@ -285,18 +284,18 @@ double OBTAINBeatTracker::estimateTempo()
 
     for (auto& c : candidates)
     {
-        double candBPM = c.second;
-        double candPeriod = framesPerSec * (60.0 / candBPM);
+        const double candBPM = c.second;
+        const double candPeriod = framesPerSec * (60.0 / candBPM);
         // Cross-correlation with pulse train
         // Shift the pulse train for all possible phases to find maximum
         // We'll define a small step for phase in [0, candPeriod)
         double localBest = -1e9;
-        for (int phase = 0; phase < (int)candPeriod; ++phase)
+        for (int phase = 0; phase < static_cast<int>(candPeriod); ++phase)
         {
             double sum = 0.0;
             // Construct pulses at indices: phase + k*candPeriod
-            for (int t = phase; t < length; t += (int)std::round(candPeriod))
-                sum += windowedOSS[t];
+            for (int t = phase; t < length; t += static_cast<int>(std::round(candPeriod)))
+                sum += windowedOSS[static_cast<std::size_t>(t)];
             if (sum > localBest)
                 localBest = sum;
         }
@@ -322,19 +321,21 @@ void OBTAINBeatTracker::refineTempo(double newTempo)
     // => numberOfFrames = 7 * framesPerSec => ~7 * 43 = ~301 frames if you want
     // We'll do something simpler:
     tempoHistory.push_back(newTempo);
-    while ((int)tempoHistory.size() > 40) // store ~40 frames worth
+    while (static_cast<int>(tempoHistory.size()) > 40) // store ~40 frames worth
         tempoHistory.pop_front();
 
     double meanTempo = 0.0;
-    for (auto t : tempoHistory)
+    for (const double t : tempoHistory)
         meanTempo += t;
     meanTempo /= (double) tempoHistory.size();
+
+    (void) meanTempo;
 
     // If new tempo is far from stable tempo, check if it's a "harmonic" or an outlier
     if (std::fabs(newTempo - stableTempoBPM) > 5.0)
     {
         // e.g. check if newTempo is ~2x or 0.5x old tempo, to see if it's a harmonic
-        if (double ratio = (newTempo / stableTempoBPM); ratio > 1.9 && ratio < 2.1)
+        if (const double ratio = (newTempo / stableTempoBPM); ratio > 1.9 && ratio < 2.1)
         {
             // It's basically double-time -> ignore if you want, or adopt if it persists
         }
@@ -361,9 +362,9 @@ void OBTAINBeatTracker::refineTempo(double newTempo)
     }
 
     // update the integer beat period in frames
-    double framesPerSec = currentSampleRate / (double) HopSize;
-    double framesPerBeat = (60.0 / stableTempoBPM) * framesPerSec;
-    currentBeatPeriodFrames = std::max(1, (int)std::round(framesPerBeat));
+    const double framesPerSec = currentSampleRate / static_cast<double>(HopSize);
+    const double framesPerBeat = (60.0 / stableTempoBPM) * framesPerSec;
+    currentBeatPeriodFrames = std::max(1, static_cast<int>(std::round(framesPerBeat)));
 }
 
 //==============================================================
@@ -383,10 +384,10 @@ double OBTAINBeatTracker::computeCBSS(double currentOSS)
     // Grow our cbss buffer
     // We'll store the new CBSS at cbssIndex
     // Then increment. We'll do a ring buffer approach.
-    double phiVal = computePhi(cbssIndex);
-    double newCBSS = (1.0 - alpha)*currentOSS + alpha*phiVal;
+    const double phiVal = computePhi(cbssIndex);
+    const double newCBSS = (1.0 - alpha)*currentOSS + alpha*phiVal;
 
-    cbssValues[cbssIndex] = newCBSS;
+    cbssValues[static_cast<std::size_t>(cbssIndex)] = newCBSS;
     cbssIndex = (cbssIndex + 1) % CBSSBufferSize;
 
     return newCBSS;
@@ -409,28 +410,27 @@ double OBTAINBeatTracker::computePhi(int indexN)
     // Build a log-Gaussian weighting
     // The paper: W[v] = exp( - (eta*log(-v/tau_b))^2 / 2 ), for v < 0, with tau_b>0
     // We'll do a symmetrical version. We'll define a small eta or ~1.0
-    double eta = 1.0;
 
     double maxVal = 0.0;
     // We only look behind indexN (like eq. 4 in the paper).
     // For simplicity, we’ll look from -halfP to + halfP, skipping v=0 to avoid log(0).
     for (int v = -halfP; v <= halfP; ++v)
     {
+        constexpr double eta = 1.0;
         if (v == 0)
             continue; // skip or handle carefully
 
-        double ratio = -(double)v / (double)currentBeatPeriodFrames;
+        const double ratio = -(double)v / (double)currentBeatPeriodFrames;
         // The minus sign: so that negative v => ratio>0
         if (ratio <= 0.0)
             continue;
 
-        double exponent = -0.5 * (eta * std::log(ratio)) * (eta * std::log(ratio));
-        double wv = std::exp(exponent);
+        const double exponent = -0.5 * (eta * std::log(ratio)) * (eta * std::log(ratio));
+        const double wv = std::exp(exponent);
 
         // ring buffer indexing
-        int idx = (indexN + v + CBSSBufferSize) % CBSSBufferSize;
-        double val = wv * cbssValues[idx];
-        if (val > maxVal)
+        const int idx = (indexN + v + CBSSBufferSize) % CBSSBufferSize;
+        if (const double val = wv * cbssValues[static_cast<std::size_t>(idx)]; val > maxVal)
             maxVal = val;
     }
     return maxVal;
@@ -456,8 +456,7 @@ bool OBTAINBeatTracker::detectBeat(double cbssVal)
     // ---- MAIN SYSTEM (ignores beat period; checks local maxima over small window) ---
     // e.g. look if CBSS is bigger than neighbors.
     // Because we do 1 sample per frame, the "neighbors" are the last 2 frames or so.
-    double prevVal = cbssValues[(currentIndex - 1 + CBSSBufferSize) % CBSSBufferSize];
-    if (cbssVal > prevVal && cbssVal > 0.1) // a threshold
+    if (const double prevVal = cbssValues[static_cast<std::size_t>((currentIndex - 1 + CBSSBufferSize) % CBSSBufferSize)]; cbssVal > prevVal && cbssVal > 0.1) // a threshold
     {
         mainDetected = true;
     }
@@ -486,7 +485,7 @@ bool OBTAINBeatTracker::detectBeat(double cbssVal)
             for (int p = shift; p < 3 * currentBeatPeriodFrames; p += currentBeatPeriodFrames)
             {
                 int idx = (currentIndex - p + CBSSBufferSize) % CBSSBufferSize;
-                sumVal += cbssValues[idx];
+                sumVal += cbssValues[static_cast<std::size_t>(idx)];
             }
             if (sumVal > bestCorr)
                 bestCorr = sumVal;
@@ -504,10 +503,10 @@ bool OBTAINBeatTracker::detectBeat(double cbssVal)
     // Correction: If the second system's average is bigger than the main system's average => correct
     double avgMain = 0.0;
     if (!mainPeaks.empty())
-        avgMain = std::accumulate(mainPeaks.begin(), mainPeaks.end(), 0.0) / (double) mainPeaks.size();
+        avgMain = std::accumulate(mainPeaks.begin(), mainPeaks.end(), 0.0) / static_cast<double>(mainPeaks.size());
     double avgSecond = 0.0;
     if (!secondPeaks.empty())
-        avgSecond = std::accumulate(secondPeaks.begin(), secondPeaks.end(), 0.0) / (double) secondPeaks.size();
+        avgSecond = std::accumulate(secondPeaks.begin(), secondPeaks.end(), 0.0) / static_cast<double>(secondPeaks.size());
 
     if (avgSecond > avgMain + 0.2)
     {

@@ -2,7 +2,7 @@
 
 #include <nierika_dsp/nierika_dsp.h>
 
-#include "PluginProcessor.h"
+#include "../PluginProcessor.h"
 #include "Component/Section/Test.h"
 #include "Component/Section/Reverb.h"
 
