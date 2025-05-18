@@ -16,10 +16,6 @@ PluginAudioProcessorEditor::PluginAudioProcessorEditor(PluginAudioProcessor& p):
     setResizeLimits(400, 500, 5000, 5000);
 }
 
-PluginAudioProcessorEditor::~PluginAudioProcessorEditor()
-{
-}
-
 void PluginAudioProcessorEditor::setBypass(bool isBypassed)
 {
     _layout.setBypass(isBypassed);

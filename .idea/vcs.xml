@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../ai/crew-ai-local-llm" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../ai/nierika.ai" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Libs/juce" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Libs/nierika_dsp" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../libraries/JUCE" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../nierika_dsp" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../sandbox-plugin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../tevari" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../tevari-react" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../tlaloc" vcs="Git" />
+  </component>
+</project>

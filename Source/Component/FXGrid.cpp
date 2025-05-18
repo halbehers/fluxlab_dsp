@@ -1,5 +1,4 @@
 #include "Component/FXGrid.h"
-#include "Component/Section/SectionIDs.h"
 
 namespace component
 {
@@ -42,13 +41,9 @@ FXGrid::FXGrid(ndsp::ParameterManager& parameterManager):
     _layout.setMovable("compressor", true);
 }
 
-FXGrid::~FXGrid()
-{
-}
-
 void FXGrid::paint(juce::Graphics& g)
 {
-    Component::paint(g);
+    nui::Section::paint(g);
     _layout.paint(g);
 }
 

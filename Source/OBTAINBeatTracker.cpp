@@ -259,7 +259,7 @@ double OBTAINBeatTracker::estimateTempo()
                 if (acf[lag] > acf[lag - 1] && acf[lag] > acf[lag + 1])
                 {
                     // It's a local peak
-                    candidates.push_back(std::make_pair(val, bpm));
+                    candidates.emplace_back(val, bpm);
                 }
             }
         }
@@ -334,8 +334,7 @@ void OBTAINBeatTracker::refineTempo(double newTempo)
     if (std::fabs(newTempo - stableTempoBPM) > 5.0)
     {
         // e.g. check if newTempo is ~2x or 0.5x old tempo, to see if it's a harmonic
-        double ratio = (newTempo / stableTempoBPM);
-        if (ratio > 1.9 && ratio < 2.1)
+        if (double ratio = (newTempo / stableTempoBPM); ratio > 1.9 && ratio < 2.1)
         {
             // It's basically double-time -> ignore if you want, or adopt if it persists
         }
@@ -505,10 +504,10 @@ bool OBTAINBeatTracker::detectBeat(double cbssVal)
     // Correction: If the second system's average is bigger than the main system's average => correct
     double avgMain = 0.0;
     if (!mainPeaks.empty())
-        avgMain = std::accumulate(mainPeaks.begin(), mainPeaks.end(), 0.0) / mainPeaks.size();
+        avgMain = std::accumulate(mainPeaks.begin(), mainPeaks.end(), 0.0) / (double) mainPeaks.size();
     double avgSecond = 0.0;
     if (!secondPeaks.empty())
-        avgSecond = std::accumulate(secondPeaks.begin(), secondPeaks.end(), 0.0) / secondPeaks.size();
+        avgSecond = std::accumulate(secondPeaks.begin(), secondPeaks.end(), 0.0) / (double) secondPeaks.size();
 
     if (avgSecond > avgMain + 0.2)
     {

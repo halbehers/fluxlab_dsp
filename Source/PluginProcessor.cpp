@@ -1,8 +1,6 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 #include "Parameters.h"
-#include "AppLogger.h"
-#include "Component/Section/SectionIDs.h"
 
 PluginAudioProcessor::PluginAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -16,6 +14,11 @@ PluginAudioProcessor::PluginAudioProcessor()
                        ), ndsp::ParameterManager(dynamic_cast<juce::AudioProcessor&>(*this), [this]() { return getParameterLayout(); })
 #endif
 {
+    _audioEngine.setEnabled(Parameters::PLUGIN_ENABLED_DEFAULT);
+    _audioEngine.addProcess("reverb", _reverbProcess);
+    
+    _reverbProcess.setHPF(Parameters::REVERB_HPF_DEFAULT);
+    _reverbProcess.setLPF(Parameters::REVERB_LPF_DEFAULT);
 }
 
 PluginAudioProcessor::~PluginAudioProcessor()
@@ -31,7 +34,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout PluginAudioProcessor::getPar
         Parameters::PLUGIN_ENABLED_ID,
         "Plugin Enabled",
         Parameters::PLUGIN_ENABLED_DEFAULT,
-        [this](bool value) { _isPluginEnabled = value; },
+        [this](bool value) { _audioEngine.setEnabled(value); },
         "Bypass the whole plugin."
      );
 
@@ -55,9 +58,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout PluginAudioProcessor::getPar
         0.f,
         1.f,
         [this](float value) {
-            auto parameters = _reverbProcess.getParameters();
-            parameters.roomSize = value;
-            _reverbProcess.setParameters(parameters);
+            _reverbProcess.setSize(value);
         },
         "Reverb's room size."
     );
@@ -70,9 +71,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout PluginAudioProcessor::getPar
         0.f,
         1.f,
         [this](float value) {
-            auto parameters = _reverbProcess.getParameters();
-            parameters.width = value;
-            _reverbProcess.setParameters(parameters);
+            _reverbProcess.setWidth(value);
         },
         "Reverb's width."
     );
@@ -84,7 +83,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout PluginAudioProcessor::getPar
         Parameters::REVERB_HPF_DEFAULT,
         20.f,
         20000.f,
-        [this](float value) { _reverbHPF = value; },
+        [this](float value) { _reverbProcess.setHPF(value); },
         "Reverb's high pass filter."
     );
     registerParameter
@@ -95,7 +94,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout PluginAudioProcessor::getPar
         Parameters::REVERB_LPF_DEFAULT,
         20.f,
         20000.f,
-        [this](float value) { _reverbLPF = value; },
+        [this](float value) { _reverbProcess.setLPF(value); },
         "Reverb's low pass filter."
     );
     registerParameter
@@ -177,7 +176,7 @@ void PluginAudioProcessor::changeProgramName(int index, const juce::String& newN
 //==============================================================================
 void PluginAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
-    juce::dsp::ProcessSpec spec;
+    juce::dsp::ProcessSpec spec{};
     spec.sampleRate = sampleRate;
     spec.maximumBlockSize = samplesPerBlock;
     spec.numChannels = getMainBusNumOutputChannels();
@@ -190,8 +189,8 @@ void PluginAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     leftChannelFifo.prepare(samplesPerBlock);
     rightChannelFifo.prepare(samplesPerBlock);
 
-    // Audio FX.
-    _reverbProcess.prepare(spec);
+    // Audio Engine.
+    _audioEngine.prepare(spec);
 }
 
 void PluginAudioProcessor::releaseResources()
@@ -247,11 +246,9 @@ void PluginAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::
 
     rmsProcessor.process(buffer);
     
-    if (!_isPluginEnabled) return;
-    
     juce::dsp::AudioBlock<float> block(buffer);
 
-    _reverbProcess.process(juce::dsp::ProcessContextReplacing<float>(block));
+    _audioEngine.process(juce::dsp::ProcessContextReplacing<float>(block));
 }
 
 //==============================================================================

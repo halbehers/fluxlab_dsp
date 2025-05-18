@@ -1,5 +1,7 @@
 #include "FFT.h"
 
+#include <cmath>
+
 namespace dsp::calculations
 {
 

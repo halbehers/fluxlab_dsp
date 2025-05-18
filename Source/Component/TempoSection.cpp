@@ -1,10 +1,9 @@
-#include <JuceHeader.h>
 #include "Component/TempoSection.h"
 
 namespace component
 {
 
-TempoSection::TempoSection(std::string identifier, ndsp::ParameterManager& parameterManager, PluginAudioProcessor& audioProcessor):
+TempoSection::TempoSection(const std::string& identifier, ndsp::ParameterManager& parameterManager, PluginAudioProcessor& audioProcessor):
     Section(identifier, parameterManager),
     _audioProcessor(audioProcessor)
 {

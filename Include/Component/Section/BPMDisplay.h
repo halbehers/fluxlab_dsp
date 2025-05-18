@@ -1,8 +1,9 @@
 #pragma once
 
-#include <JuceHeader.h>
+#include <nierika_dsp/nierika_dsp.h>
+#include <juce_events/juce_events.h>
+
 #include "PluginProcessor.h"
-#include "Parameters.h"
 
 namespace component::section
 {
@@ -10,7 +11,7 @@ namespace component::section
 class BPMDisplay : public nui::Section, juce::Timer
 {
 public:
-    BPMDisplay(std::string identifier, ndsp::ParameterManager& parameterManager, PluginAudioProcessor& audioProcessor);
+    BPMDisplay(const std::string& identifier, ndsp::ParameterManager& parameterManager, PluginAudioProcessor& audioProcessor);
     ~BPMDisplay() override;
 
     void paint(juce::Graphics&) override;

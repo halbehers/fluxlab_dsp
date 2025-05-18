@@ -1,5 +1,5 @@
 #include "AppLayout.h"
-#include "Component/Section/SectionIDs.h"
+#include "Parameters.h"
 
 AppLayout::AppLayout(ndsp::ParameterManager& parameterManager, PluginAudioProcessor& audioProcessor):
     nlayout::AppLayout(parameterManager, Parameters::PLUGIN_ENABLED_ID),
@@ -27,10 +27,6 @@ AppLayout::AppLayout(ndsp::ParameterManager& parameterManager, PluginAudioProces
     getLayout().addComponent("footer", _footer, 4, 0, 3, 1);
     
     displayTooltip();
-}
-
-AppLayout::~AppLayout()
-{
 }
 
 void AppLayout::bypassComponents(bool isBypassed)

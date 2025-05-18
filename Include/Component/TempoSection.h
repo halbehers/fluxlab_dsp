@@ -1,8 +1,8 @@
 #pragma once
 
-#include <JuceHeader.h>
+#include <nierika_dsp/nierika_dsp.h>
+#include <juce_events/juce_events.h>
 #include "PluginProcessor.h"
-#include "Parameters.h"
 
 namespace component
 {
@@ -10,7 +10,7 @@ namespace component
 class TempoSection : public nui::Section, juce::Timer
 {
 public:
-    TempoSection(std::string identifier, ndsp::ParameterManager& parameterManager, PluginAudioProcessor& audioProcessor);
+    TempoSection(const std::string& identifier, ndsp::ParameterManager& parameterManager, PluginAudioProcessor& audioProcessor);
     ~TempoSection() override;
 
     void paint(juce::Graphics&) override;

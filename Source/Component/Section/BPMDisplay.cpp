@@ -1,10 +1,9 @@
-#include <JuceHeader.h>
 #include "Component/Section/BPMDisplay.h"
 
 namespace component::section
 {
 
-BPMDisplay::BPMDisplay(std::string identifier, ndsp::ParameterManager& parameterManager, PluginAudioProcessor& audioProcessor):
+BPMDisplay::BPMDisplay(const std::string& identifier, ndsp::ParameterManager& parameterManager, PluginAudioProcessor& audioProcessor):
     Section(identifier, parameterManager),
     _audioProcessor(audioProcessor)
 {

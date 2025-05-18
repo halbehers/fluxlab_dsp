@@ -1,9 +1,8 @@
 #pragma once
 
-#include <JuceHeader.h>
+#include <nierika_dsp/nierika_dsp.h>
 
 #include "PluginProcessor.h"
-#include "Component/Section/BPMDisplay.h"
 #include "Component/Section/Test.h"
 #include "Component/TempoSection.h"
 #include "Component/FXGrid.h"
@@ -12,7 +11,7 @@ class AppLayout : public nlayout::AppLayout
 {
 public:
     AppLayout(ndsp::ParameterManager& parameterManager, PluginAudioProcessor& audioProcessor);
-    ~AppLayout() override;
+    ~AppLayout() override = default;
     
     void bypassComponents(bool isBypassed) override;
 

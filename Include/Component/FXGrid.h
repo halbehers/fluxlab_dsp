@@ -1,6 +1,6 @@
 #pragma once
 
-#include <JuceHeader.h>
+#include <nierika_dsp/nierika_dsp.h>
 
 #include "PluginProcessor.h"
 #include "Component/Section/Test.h"
@@ -12,8 +12,8 @@ namespace component
 class FXGrid : public nui::Section
 {
 public:
-    FXGrid(ndsp::ParameterManager& parameterManager);
-    ~FXGrid() override;
+    explicit FXGrid(ndsp::ParameterManager& parameterManager);
+    ~FXGrid() override = default;
     
     void paint(juce::Graphics& g) override;
     void resized() override;

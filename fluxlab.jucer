@@ -32,6 +32,9 @@
       </GROUP>
     </GROUP>
     <GROUP id="{FCD45E3B-F4D7-7C4E-A9F7-5BBFBE0313EB}" name="Include">
+      <FILE id="j9ogxL" name="ReverbProcess.h" compile="0" resource="0" file="Include/ReverbProcess.h"/>
+      <FILE id="IYRI1v" name="AudioProcess.h" compile="0" resource="0" file="Include/AudioProcess.h"/>
+      <FILE id="clui4p" name="AudioEngine.h" compile="0" resource="0" file="Include/AudioEngine.h"/>
       <GROUP id="{36D9D9A3-26BF-F377-532A-FDAB169B9317}" name="Component">
         <GROUP id="{E9CDB3D9-0F6B-ECC7-2F24-25C45957E68D}" name="Section">
           <FILE id="KDnUfv" name="BPMDisplay.h" compile="0" resource="0" file="Include/Component/Section/BPMDisplay.h"/>
@@ -55,6 +58,9 @@
             file="Include/PluginProcessor.h"/>
     </GROUP>
     <GROUP id="{C3832E0A-879B-D405-CF2B-C40B02249F72}" name="Source">
+      <FILE id="cwlMz0" name="ReverbProcess.cpp" compile="1" resource="0"
+            file="Source/Component/ReverbProcess.cpp"/>
+      <FILE id="r3s4Tv" name="AudioEngine.cpp" compile="1" resource="0" file="Source/Component/AudioEngine.cpp"/>
       <FILE id="jciayU" name="AppLayout.cpp" compile="1" resource="0" file="Source/AppLayout.cpp"/>
       <FILE id="H9KfOl" name="OBTAINBeatTracker.cpp" compile="1" resource="0"
             file="Source/OBTAINBeatTracker.cpp"/>

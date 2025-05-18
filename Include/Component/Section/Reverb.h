@@ -1,8 +1,7 @@
 #pragma once
 
-#include <JuceHeader.h>
-
-#include "Parameters.h"
+#include <nierika_dsp/nierika_dsp.h>
+#include <juce_graphics/juce_graphics.h>
 
 namespace nierika::gui::section
 {
@@ -10,8 +9,8 @@ namespace nierika::gui::section
 class Reverb: public Section
 {
 public:
-    Reverb(ndsp::ParameterManager& parameterManager);
-    ~Reverb();
+    explicit Reverb(ndsp::ParameterManager& parameterManager);
+    ~Reverb() override = default;
 
     void paint(juce::Graphics&) override;
 

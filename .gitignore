@@ -34,3 +34,6 @@
 .DS_Store
 /*/Builds/
 Builds/
+
+Libs/juce
+Libs/cpm

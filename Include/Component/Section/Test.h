@@ -1,8 +1,9 @@
 #pragma once
 
-#include <JuceHeader.h>
+#include <nierika_dsp/nierika_dsp.h>
+#include <juce_graphics/juce_graphics.h>
+
 #include "PluginProcessor.h"
-#include "Parameters.h"
 
 namespace component::section
 {
@@ -10,7 +11,7 @@ namespace component::section
 class Test : public nui::Section
 {
 public:
-    Test(std::string identifier, ndsp::ParameterManager& parameterManager);
+    Test(const std::string& identifier, ndsp::ParameterManager& parameterManager);
     ~Test() override;
 
     void paint(juce::Graphics&) override;

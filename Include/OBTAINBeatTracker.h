@@ -1,6 +1,6 @@
 #pragma once
 
-#include <JuceHeader.h>
+#include <juce_core/juce_core.h>
 #include <vector>
 #include <deque>
 
@@ -38,9 +38,9 @@ public:
     /**
      * \return The sample index of the most recently detected beat, or -1 if none.
      */
-    juce::int64 getLastBeatSample() const { return lastBeatSample; }
+    [[nodiscard]] juce::int64 getLastBeatSample() const { return lastBeatSample; }
     
-    double getBPM() const { return stableTempoBPM; }
+    [[nodiscard]] double getBPM() const { return stableTempoBPM; }
 
 private:
 

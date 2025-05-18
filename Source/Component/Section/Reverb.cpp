@@ -1,14 +1,5 @@
-/*
-  ==============================================================================
-
-    ReverbSection.cpp
-    Created: 24 Apr 2025 3:48:51pm
-    Author:  Sebastien Halbeher
-
-  ==============================================================================
-*/
-
 #include "Component/Section/Reverb.h"
+#include "Parameters.h"
 
 namespace nierika::gui::section
 {
@@ -38,10 +29,6 @@ Reverb::Reverb(ndsp::ParameterManager& parameterManager):
 
     setLayoutMargin(12.f, 0.f, 12.f, 12.f);
     setLayoutDisplayGrid(false);
-}
-
-Reverb::~Reverb()
-{
 }
 
 void Reverb::paint(juce::Graphics& g)

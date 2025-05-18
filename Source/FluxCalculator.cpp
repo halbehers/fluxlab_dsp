@@ -1,5 +1,7 @@
 #include "FluxCalculator.h"
 
+#include <cmath>
+
 namespace dsp::calculations
 {
 

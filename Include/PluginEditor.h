@@ -1,14 +1,13 @@
 #pragma once
 
-#include <JuceHeader.h>
 #include "PluginProcessor.h"
 #include "AppLayout.h"
 
 class PluginAudioProcessorEditor : public juce::AudioProcessorEditor
 {
 public:
-    PluginAudioProcessorEditor(PluginAudioProcessor&);
-    ~PluginAudioProcessorEditor() override;
+    explicit PluginAudioProcessorEditor(PluginAudioProcessor&);
+    ~PluginAudioProcessorEditor() override = default;
 
     //==============================================================================
     void paint(juce::Graphics&) override;

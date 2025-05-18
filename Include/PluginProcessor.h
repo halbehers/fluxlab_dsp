@@ -8,9 +8,11 @@
 
 #pragma once
 
-#include <JuceHeader.h>
-#include "Parameters.h"
+#include <juce_audio_processors/juce_audio_processors.h>
+#include <nierika_dsp/nierika_dsp.h>
 #include "OBTAINBeatTracker.h"
+#include "AudioEngine.h"
+#include "ReverbProcess.h"
 
 using BlockType = juce::AudioBuffer<float>;
 
@@ -49,32 +51,28 @@ public:
     //==============================================================================
     int getNumPrograms() override;
     int getCurrentProgram() override;
-    void setCurrentProgram (int index) override;
-    const juce::String getProgramName (int index) override;
-    void changeProgramName (int index, const juce::String& newName) override;
+    void setCurrentProgram(int index) override;
+    const juce::String getProgramName(int index) override;
+    void changeProgramName(int index, const juce::String& newName) override;
 
     //==============================================================================
-    void getStateInformation (juce::MemoryBlock& destData) override;
-    void setStateInformation (const void* data, int sizeInBytes) override;
+    void getStateInformation(juce::MemoryBlock& destData) override;
+    void setStateInformation(const void* data, int sizeInBytes) override;
     
     long long getLastBeatSample() const { return _beatTracker.getLastBeatSample(); }
     double getBPM() const { return _beatTracker.getBPM(); }
 
-    nierika::dsp::SingleChannelSampleFIFO<BlockType> leftChannelFifo { nierika::dsp::Channel::LEFT };
-    nierika::dsp::SingleChannelSampleFIFO<BlockType> rightChannelFifo { nierika::dsp::Channel::RIGHT };
+    ndsp::SingleChannelSampleFIFO<BlockType> leftChannelFifo { ndsp::Channel::LEFT };
+    ndsp::SingleChannelSampleFIFO<BlockType> rightChannelFifo { ndsp::Channel::RIGHT };
     ndsp::RMSProcessor rmsProcessor;
 
 private:
     dsp::OBTAINBeatTracker _beatTracker;
     double _currentSampleRate = 44100.0;
     int _blockSize = 512;
-    
-    bool _isPluginEnabled = Parameters::PLUGIN_ENABLED_DEFAULT;
 
-    float _reverbHPF = Parameters::REVERB_HPF_DEFAULT;
-    float _reverbLPF = Parameters::REVERB_LPF_DEFAULT;
-    
-    juce::dsp::Reverb _reverbProcess;
+    ndsp::ReverbProcess _reverbProcess;
+    ndsp::AudioEngine _audioEngine;
 
     juce::AudioProcessorValueTreeState::ParameterLayout getParameterLayout();
     //==============================================================================

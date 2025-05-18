@@ -1,15 +1,13 @@
-#include <JuceHeader.h>
 #include "Component/Section/Test.h"
-#include "Component/Section/SectionIDs.h"
 
 namespace component::section
 {
 
-Test::Test(std::string identifier, ndsp::ParameterManager& parameterManager):
+Test::Test(const std::string& identifier, ndsp::ParameterManager& parameterManager):
     Section(identifier, parameterManager)
 {
     setComponentID(identifier);
-    setName(identifier);
+    Component::setName(identifier);
     nui::TooltipManager::getInstance().registerComponent(*this, identifier);
 }
 
