@@ -35,6 +35,8 @@
 /*/Builds/
 Builds/
 
+.idea
+
 Libs/
 
 cmake-build-debug/

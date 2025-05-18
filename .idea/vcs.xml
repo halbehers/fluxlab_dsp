@@ -4,8 +4,6 @@
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../ai/crew-ai-local-llm" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../ai/nierika.ai" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Libs/juce" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Libs/nierika_dsp" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../libraries/JUCE" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../nierika_dsp" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../sandbox-plugin" vcs="Git" />
