@@ -5,11 +5,14 @@
 #include "../PluginProcessor.h"
 #include "Component/Section/Test.h"
 #include "Component/Section/Reverb.h"
+#include "Component/Section/Phaser.h"
+#include "Component/Section/Chorus.h"
+#include "Component/Section/Compressor.h"
 
 namespace component
 {
 
-class FXGrid : public nui::Section
+class FXGrid final : public nui::Section
 {
 public:
     explicit FXGrid(ndsp::ParameterManager& parameterManager);
@@ -25,10 +28,10 @@ private:
 
     nierika::gui::section::Reverb _reverb;
     component::section::Test _delay;
-    component::section::Test _flanger;
-    component::section::Test _chorus;
-    component::section::Test _gate;
-    component::section::Test _compressor;
+    nierika::gui::section::Phaser _phaser;
+    nierika::gui::section::Chorus _chorus;
+    component::section::Test _filter;
+    nierika::gui::section::Compressor _compressor;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(FXGrid)
 };

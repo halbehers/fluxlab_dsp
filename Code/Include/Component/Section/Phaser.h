@@ -6,22 +6,22 @@
 namespace nierika::gui::section
 {
 
-class Reverb final : public Section
+class Phaser final : public Section
 {
 public:
-    explicit Reverb(ndsp::ParameterManager& parameterManager);
-    ~Reverb() override = default;
+    explicit Phaser(ndsp::ParameterManager& parameterManager);
+    ~Phaser() override = default;
 
     void paint(juce::Graphics&) override;
 
 private:
-    element::PercentageDial _size;
-    element::PercentageDial _width;
+    element::FrequencyDial _rate;
+    element::PercentageDial _depth;
     element::FrequencyDial _highPass;
     element::FrequencyDial _lowPass;
     element::PercentageDial _dryWet;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Reverb)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Phaser)
 };
 
 }

@@ -6,10 +6,10 @@
 namespace nierika::dsp
 {
 
-class ReverbProcess final : public AudioProcess
+class PhaserProcess final : public AudioProcess
 {
 public:
-    ReverbProcess();
+    PhaserProcess();
 
     [[nodiscard]] bool isEnabled() const noexcept override;
     void setEnabled(bool isEnabled) noexcept override;
@@ -17,15 +17,16 @@ public:
     void reset() noexcept override;
     void process(const juce::dsp::ProcessContextReplacing<float>& context) noexcept override;
     
-    void setSize(float value);
-    void setWidth(float value);
+    void setRate(float value);
+    void setDepth(float value);
     void setHPF(float value) const;
     void setLPF(float value) const;
     void setDryWet(float value);
 
 private:
+    bool _isEnabled = true;
     double _sampleRate = 44100.0;
-    juce::dsp::Reverb _reverbProcess;
+    juce::dsp::Phaser<float> _phaserProcess;
     juce::dsp::DryWetMixer<float> _dryWetMixer;
     juce::dsp::ProcessorDuplicator<juce::dsp::IIR::Filter<float>, juce::dsp::IIR::Coefficients<float>> _highPassFilter;
     juce::dsp::ProcessorDuplicator<juce::dsp::IIR::Filter<float>, juce::dsp::IIR::Coefficients<float>> _lowPassFilter;

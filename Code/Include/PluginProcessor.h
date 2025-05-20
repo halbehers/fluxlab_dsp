@@ -13,6 +13,9 @@
 #include "OBTAINBeatTracker.h"
 #include "AudioEngine.h"
 #include "ReverbProcess.h"
+#include "ChorusProcess.h"
+#include "CompressorProcess.h"
+#include "PhaserProcess.h"
 
 using BlockType = juce::AudioBuffer<float>;
 
@@ -65,14 +68,16 @@ public:
     ndsp::SingleChannelSampleFIFO<BlockType> leftChannelFifo { ndsp::Channel::LEFT };
     ndsp::SingleChannelSampleFIFO<BlockType> rightChannelFifo { ndsp::Channel::RIGHT };
     ndsp::RMSProcessor rmsProcessor;
+    ndsp::ReverbProcess reverbProcess;
+    ndsp::PhaserProcess phaserProcess;
+    ndsp::ChorusProcess chorusProcess;
+    ndsp::CompressorProcess compressorProcess;
+    ndsp::AudioEngine audioEngine;
 
 private:
     dsp::OBTAINBeatTracker _beatTracker;
     double _currentSampleRate = 44100.0;
     int _blockSize = 512;
-
-    ndsp::ReverbProcess _reverbProcess;
-    ndsp::AudioEngine _audioEngine;
 
     juce::AudioProcessorValueTreeState::ParameterLayout getParameterLayout();
     //==============================================================================

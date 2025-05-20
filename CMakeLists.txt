@@ -12,11 +12,14 @@ set(FORMATS Standalone AU VST3 AUv3)
 
 set(CMAKE_CXX_STANDARD 20)
 set(JUCE_VERSION 8.0.7)
-set(NIERIKA_DSP_VERSION 0.1.3)
+set(NIERIKA_DSP_VERSION 0.1.8)
 set(INCLUDE_DIR "Code/Include")
 set(SOURCE_DIR "Code/Source")
 set(CMAKE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/CMake")
 set(LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Libs")
+
+set(USE_LOCAL_NIERIKA_DSP ON)
+set(LOCAL_NIERIKA_DSP_PATH "/Users/$ENV{USER}/Repos/nierika_dsp")
 
 project(${PROJECT_NAME} VERSION ${VERSION})
 
@@ -38,18 +41,21 @@ cpmaddpackage(
         SOURCE_DIR ${LIB_DIR}/juce
 )
 
-cpmaddpackage(
-        NAME NIERIKA_DSP
-        GIT_TAG "v${NIERIKA_DSP_VERSION}"
-        VERSION ${NIERIKA_DSP_VERSION}
-        GITHUB_REPOSITORY halbehers/nierika_dsp
-        SOURCE_DIR ${LIB_DIR}/nierika_dsp
-)
+if (USE_LOCAL_NIERIKA_DSP)
+    juce_add_module("${LOCAL_NIERIKA_DSP_PATH}" ALIAS_NAMESPACE nierika)
+else ()
+    cpmaddpackage(
+            NAME NIERIKA_DSP
+            GIT_TAG "v${NIERIKA_DSP_VERSION}"
+            VERSION ${NIERIKA_DSP_VERSION}
+            GITHUB_REPOSITORY halbehers/nierika_dsp
+            SOURCE_DIR ${LIB_DIR}/nierika_dsp
+    )
+    juce_add_module("${LIB_DIR}/nierika_dsp" ALIAS_NAMESPACE nierika)
+endif()
 
 include(${CMAKE_DIR}/warnings.cmake)
 include(${CMAKE_DIR}/utils.cmake)
-
-juce_add_module("${LIB_DIR}/nierika_dsp" ALIAS_NAMESPACE nierika)
 
 juce_add_plugin(
         ${PROJECT_NAME}

@@ -14,11 +14,39 @@ PluginAudioProcessor::PluginAudioProcessor()
                        ), ndsp::ParameterManager(dynamic_cast<juce::AudioProcessor&>(*this), [this]() { return getParameterLayout(); })
 #endif
 {
-    _audioEngine.setEnabled(Parameters::PLUGIN_ENABLED_DEFAULT);
-    _audioEngine.addProcess("reverb", _reverbProcess);
-    
-    _reverbProcess.setHPF(Parameters::REVERB_HPF_DEFAULT);
-    _reverbProcess.setLPF(Parameters::REVERB_LPF_DEFAULT);
+    audioEngine.setEnabled(Parameters::PLUGIN_ENABLED_DEFAULT);
+    audioEngine.addProcess("reverb", reverbProcess);
+    audioEngine.addProcess("phaser", phaserProcess);
+    audioEngine.addProcess("chorus", chorusProcess);
+    audioEngine.addProcess("compressor", compressorProcess);
+
+    reverbProcess.setEnabled(Parameters::REVERB_ENABLED_DEFAULT);
+    reverbProcess.setSize(Parameters::REVERB_SIZE_DEFAULT);
+    reverbProcess.setWidth(Parameters::REVERB_WIDTH_DEFAULT);
+    reverbProcess.setHPF(Parameters::REVERB_HPF_DEFAULT);
+    reverbProcess.setLPF(Parameters::REVERB_LPF_DEFAULT);
+    reverbProcess.setDryWet(Parameters::REVERB_DRY_WET_DEFAULT);
+
+    phaserProcess.setEnabled(Parameters::PHASER_ENABLED_DEFAULT);
+    phaserProcess.setDepth(Parameters::PHASER_DEPTH_DEFAULT);
+    phaserProcess.setRate(Parameters::PHASER_RATE_DEFAULT);
+    phaserProcess.setHPF(Parameters::PHASER_HPF_DEFAULT);
+    phaserProcess.setLPF(Parameters::PHASER_LPF_DEFAULT);
+    phaserProcess.setDryWet(Parameters::PHASER_DRY_WET_DEFAULT);
+
+    chorusProcess.setEnabled(Parameters::CHORUS_ENABLED_DEFAULT);
+    chorusProcess.setDepth(Parameters::CHORUS_DEPTH_DEFAULT);
+    chorusProcess.setRate(Parameters::CHORUS_RATE_DEFAULT);
+    chorusProcess.setHPF(Parameters::CHORUS_HPF_DEFAULT);
+    chorusProcess.setLPF(Parameters::CHORUS_LPF_DEFAULT);
+    chorusProcess.setDryWet(Parameters::CHORUS_DRY_WET_DEFAULT);
+
+    compressorProcess.setEnabled(Parameters::COMPRESSOR_ENABLED_DEFAULT);
+    compressorProcess.setThreshold(Parameters::COMPRESSOR_THRESHOLD_DEFAULT);
+    compressorProcess.setRatio(Parameters::COMPRESSOR_RATIO_DEFAULT);
+    compressorProcess.setAttack(Parameters::COMPRESSOR_ATTACK_DEFAULT);
+    compressorProcess.setRelease(Parameters::COMPRESSOR_RELEASE_DEFAULT);
+    compressorProcess.setDryWet(Parameters::COMPRESSOR_DRY_WET_DEFAULT);
 }
 
 PluginAudioProcessor::~PluginAudioProcessor()
@@ -28,86 +56,7 @@ PluginAudioProcessor::~PluginAudioProcessor()
 
 juce::AudioProcessorValueTreeState::ParameterLayout PluginAudioProcessor::getParameterLayout()
 {
-    // General.
-    registerParameter
-    (
-        Parameters::PLUGIN_ENABLED_ID,
-        "Plugin Enabled",
-        Parameters::PLUGIN_ENABLED_DEFAULT,
-        [this](bool value) { _audioEngine.setEnabled(value); },
-        "Bypass the whole plugin."
-     );
-
-    // Reverb.
-    registerParameter
-    (
-        Parameters::REVERB_ENABLED_ID,
-        "Reverb Enabled",
-        Parameters::REVERB_ENABLED_DEFAULT,
-        [this](bool value) {
-            _reverbProcess.setEnabled(value);
-        },
-        "Bypass the reverb."
-    );
-    registerParameter
-    (
-        Parameters::REVERB_SIZE_ID,
-        "Reverb Size",
-        "Size",
-        Parameters::REVERB_SIZE_DEFAULT,
-        0.f,
-        1.f,
-        [this](float value) {
-            _reverbProcess.setSize(value);
-        },
-        "Reverb's room size."
-    );
-    registerParameter
-    (
-        Parameters::REVERB_WIDTH_ID,
-        "Reverb Width",
-        "Width",
-        Parameters::REVERB_WIDTH_DEFAULT,
-        0.f,
-        1.f,
-        [this](float value) {
-            _reverbProcess.setWidth(value);
-        },
-        "Reverb's width."
-    );
-    registerParameter
-    (
-        Parameters::REVERB_HPF_ID,
-        "Reverb HPF",
-        "High Pass",
-        Parameters::REVERB_HPF_DEFAULT,
-        20.f,
-        20000.f,
-        [this](float value) { _reverbProcess.setHPF(value); },
-        "Reverb's high pass filter."
-    );
-    registerParameter
-    (
-        Parameters::REVERB_LPF_ID,
-        "Reverb LPF",
-        "Low Pass",
-        Parameters::REVERB_LPF_DEFAULT,
-        20.f,
-        20000.f,
-        [this](float value) { _reverbProcess.setLPF(value); },
-        "Reverb's low pass filter."
-    );
-    registerParameter
-    (
-        Parameters::REVERB_DRY_WET_ID,
-        "Reverb Dry/Wet",
-        "Dry/Wet",
-        Parameters::REVERB_DRY_WET_DEFAULT,
-        20.f,
-        20000.f,
-        [](float value) { (void) value; },
-        "Reverb's dry / wet mix."
-    );
+    Parameters::registerAllSections(this);
 
     return buildParameterLayout();
 }
@@ -195,7 +144,7 @@ void PluginAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     rightChannelFifo.prepare(samplesPerBlock);
 
     // Audio Engine.
-    _audioEngine.prepare(spec);
+    audioEngine.prepare(spec);
 }
 
 void PluginAudioProcessor::releaseResources()
@@ -248,14 +197,13 @@ void PluginAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::
 
     _beatTracker.processAudioBlock(readPtr, numSamples);
 
+    juce::dsp::AudioBlock<float> block(buffer);
+    audioEngine.process(juce::dsp::ProcessContextReplacing<float>(block));
+
     leftChannelFifo.update(buffer);
     rightChannelFifo.update(buffer);
 
     rmsProcessor.process(buffer);
-    
-    juce::dsp::AudioBlock<float> block(buffer);
-
-    _audioEngine.process(juce::dsp::ProcessContextReplacing<float>(block));
 }
 
 //==============================================================================
