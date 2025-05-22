@@ -10,7 +10,7 @@ FXGrid::FXGrid(ndsp::ParameterManager& parameterManager):
     _delay("delay", parameterManager),
     _phaser(parameterManager),
     _chorus(parameterManager),
-    _filter("filter", parameterManager),
+    _filter(parameterManager),
     _compressor(parameterManager)
 {
     _layout.setGap(16.f);
@@ -21,24 +21,24 @@ FXGrid::FXGrid(ndsp::ParameterManager& parameterManager):
     _layout.setMargin(12.f, 0.f, 12.f, 1.f);
     _layout.init({ 1, 1 }, { 1, 1, 1 });
     
-    _layout.addComponent("reverb", _reverb, 0, 0, 1, 1);
-    _layout.addComponent("delay", _delay, 0, 1, 1, 1);
-    _layout.addComponent("phaser", _phaser, 0, 2, 1, 1);
-    _layout.addComponent("chorus", _chorus, 1, 0, 1, 1);
-    _layout.addComponent("filter", _filter, 1, 1, 1, 1);
-    _layout.addComponent("compressor", _compressor, 1, 2, 1, 1);
+    _layout.addComponent(_reverb, 0, 0, 1, 1);
+    _layout.addComponent(_delay, 0, 1, 1, 1);
+    _layout.addComponent(_phaser, 0, 2, 1, 1);
+    _layout.addComponent(_chorus, 1, 0, 1, 1);
+    _layout.addComponent(_filter, 1, 1, 1, 1);
+    _layout.addComponent(_compressor, 1, 2, 1, 1);
     
     _layout.setResizableLine({ .position = 1, .direction = nlayout::GridLayout<nui::Component>::HORIZONTAL });
     _layout.setResizableLine({ .position = 1, .direction = nlayout::GridLayout<nui::Component>::VERTICAL });
     _layout.setResizableLine({ .position = 2, .direction = nlayout::GridLayout<nui::Component>::HORIZONTAL });
     _layout.setResizableLine({ .position = 2, .direction = nlayout::GridLayout<nui::Component>::VERTICAL });
     
-    _layout.setMovable("reverb", true);
-    _layout.setMovable("delay", true);
-    _layout.setMovable("phaser", true);
-    _layout.setMovable("chorus", true);
-    _layout.setMovable("filter", true);
-    _layout.setMovable("compressor", true);
+    _layout.setMovable(_reverb.getID(), true);
+    _layout.setMovable(_delay.getID(), true);
+    _layout.setMovable(_phaser.getID(), true);
+    _layout.setMovable(_chorus.getID(), true);
+    _layout.setMovable(_filter.getID(), true);
+    _layout.setMovable(_compressor.getID(), true);
 }
 
 void FXGrid::paint(juce::Graphics& g)

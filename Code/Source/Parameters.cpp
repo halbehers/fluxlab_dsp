@@ -231,6 +231,46 @@ void Parameters::registerChorusParameters(PluginAudioProcessor* audioProcessor)
     );
 }
 
+void Parameters::registerDJFilterParameters(PluginAudioProcessor* audioProcessor)
+{
+    audioProcessor->registerParameter
+    (
+        Parameters::DJ_FILTER_ENABLED_ID,
+        "DJ Filter Enabled",
+        Parameters::DJ_FILTER_ENABLED_DEFAULT,
+        [audioProcessor](bool value) {
+            audioProcessor->djFilterProcess.setEnabled(value);
+        },
+        "Bypass the DJ Filter."
+    );
+    audioProcessor->registerParameter
+    (
+        Parameters::DJ_FILTER_VALUE_ID,
+        "DJ Filter Value",
+        "Value",
+        Parameters::DJ_FILTER_VALUE_DEFAULT,
+        -1.f,
+        1.f,
+        [audioProcessor](float value) {
+            audioProcessor->djFilterProcess.setValue(value);
+        },
+        "DJ filter's value."
+    );
+    audioProcessor->registerParameter
+    (
+        Parameters::DJ_FILTER_Q_ID,
+        "DJ Filter Resonance",
+        "Res.",
+        Parameters::DJ_FILTER_Q_DEFAULT,
+        .707f,
+        10.f,
+        [audioProcessor](float value) {
+            audioProcessor->djFilterProcess.setQ(value);
+        },
+        "DJ filter's Resonance."
+    );
+}
+
 void Parameters::registerCompressorParameters(PluginAudioProcessor* audioProcessor)
 {
     audioProcessor->registerParameter
@@ -319,6 +359,9 @@ void Parameters::registerSection(Section section, PluginAudioProcessor* audioPro
             break;
         case PHASER:
             registerPhaserParameters(audioProcessor);
+            break;
+        case DJ_FILTER:
+            registerDJFilterParameters(audioProcessor);
             break;
         case COMPRESSOR:
             registerCompressorParameters(audioProcessor);

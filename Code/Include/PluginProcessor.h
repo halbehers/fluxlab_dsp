@@ -14,6 +14,7 @@
 #include "AudioEngine.h"
 #include "ReverbProcess.h"
 #include "ChorusProcess.h"
+#include "DJFilterProcess.h"
 #include "CompressorProcess.h"
 #include "PhaserProcess.h"
 
@@ -71,6 +72,7 @@ public:
     ndsp::ReverbProcess reverbProcess;
     ndsp::PhaserProcess phaserProcess;
     ndsp::ChorusProcess chorusProcess;
+    ndsp::DJFilterProcess djFilterProcess;
     ndsp::CompressorProcess compressorProcess;
     ndsp::AudioEngine audioEngine;
 

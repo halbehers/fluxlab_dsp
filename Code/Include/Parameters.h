@@ -50,6 +50,14 @@ struct Parameters
     static constexpr char CHORUS_DRY_WET_ID[] = "chorus-dry-wet";
     static constexpr float CHORUS_DRY_WET_DEFAULT = 0.f;
 
+    // DJ Filter.
+    static constexpr char DJ_FILTER_ENABLED_ID[] = "dj-filter-enabled";
+    static constexpr bool DJ_FILTER_ENABLED_DEFAULT = true;
+    static constexpr char DJ_FILTER_VALUE_ID[] = "dj-filter-value";
+    static constexpr float DJ_FILTER_VALUE_DEFAULT = 0.f;
+    static constexpr char DJ_FILTER_Q_ID[] = "dj-filter-q";
+    static constexpr float DJ_FILTER_Q_DEFAULT = .707f;
+
     // Compressor.
     static constexpr char COMPRESSOR_ENABLED_ID[] = "compressor-enabled";
     static constexpr bool COMPRESSOR_ENABLED_DEFAULT = true;
@@ -70,6 +78,7 @@ struct Parameters
         REVERB,
         PHASER,
         CHORUS,
+        DJ_FILTER,
         COMPRESSOR,
     };
 
@@ -77,6 +86,7 @@ struct Parameters
     static void registerReverbParameters(PluginAudioProcessor* audioProcessor);
     static void registerPhaserParameters(PluginAudioProcessor* audioProcessor);
     static void registerChorusParameters(PluginAudioProcessor* audioProcessor);
+    static void registerDJFilterParameters(PluginAudioProcessor* audioProcessor);
     static void registerCompressorParameters(PluginAudioProcessor* audioProcessor);
 
     static void registerSection(Section section, PluginAudioProcessor* audioProcessor);

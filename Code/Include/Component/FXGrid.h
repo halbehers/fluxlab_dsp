@@ -7,6 +7,7 @@
 #include "Component/Section/Reverb.h"
 #include "Component/Section/Phaser.h"
 #include "Component/Section/Chorus.h"
+#include "Component/Section/DJFilter.h"
 #include "Component/Section/Compressor.h"
 
 namespace component
@@ -24,13 +25,13 @@ public:
     void bypassComponents(bool isBypassed) override;
     
 private:
-    nlayout::GridLayout<nui::Component> _layout;
+    nlayout::GridLayout<Component> _layout;
 
     nierika::gui::section::Reverb _reverb;
-    component::section::Test _delay;
+    section::Test _delay;
     nierika::gui::section::Phaser _phaser;
     nierika::gui::section::Chorus _chorus;
-    component::section::Test _filter;
+    nierika::gui::section::DJFilter _filter;
     nierika::gui::section::Compressor _compressor;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(FXGrid)

@@ -4,8 +4,8 @@ namespace nierika::dsp
 {
 
 ReverbProcess::ReverbProcess():
-    _highPassFilter(juce::dsp::IIR::Coefficients<float>::makeHighPass(44100, 220000.0, 1.0)),
-    _lowPassFilter(juce::dsp::IIR::Coefficients<float>::makeLowPass(44100, 15000.0, 1.0))
+    _highPassFilter(juce::dsp::IIR::Coefficients<float>::makeHighPass(44100, 2000.0, 1.0)),
+    _lowPassFilter(juce::dsp::IIR::Coefficients<float>::makeLowPass(44100, 16000.0, 1.0))
 {
 }
 

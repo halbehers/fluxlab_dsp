@@ -18,6 +18,7 @@ PluginAudioProcessor::PluginAudioProcessor()
     audioEngine.addProcess("reverb", reverbProcess);
     audioEngine.addProcess("phaser", phaserProcess);
     audioEngine.addProcess("chorus", chorusProcess);
+    audioEngine.addProcess("dj-filter", djFilterProcess);
     audioEngine.addProcess("compressor", compressorProcess);
 
     reverbProcess.setEnabled(Parameters::REVERB_ENABLED_DEFAULT);
@@ -40,6 +41,10 @@ PluginAudioProcessor::PluginAudioProcessor()
     chorusProcess.setHPF(Parameters::CHORUS_HPF_DEFAULT);
     chorusProcess.setLPF(Parameters::CHORUS_LPF_DEFAULT);
     chorusProcess.setDryWet(Parameters::CHORUS_DRY_WET_DEFAULT);
+
+    djFilterProcess.setEnabled(Parameters::DJ_FILTER_ENABLED_DEFAULT);
+    djFilterProcess.setValue(Parameters::DJ_FILTER_VALUE_DEFAULT);
+    djFilterProcess.setQ(Parameters::DJ_FILTER_Q_DEFAULT);
 
     compressorProcess.setEnabled(Parameters::COMPRESSOR_ENABLED_DEFAULT);
     compressorProcess.setThreshold(Parameters::COMPRESSOR_THRESHOLD_DEFAULT);
