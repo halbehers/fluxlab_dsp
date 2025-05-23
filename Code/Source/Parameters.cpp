@@ -14,7 +14,93 @@ void Parameters::registerPluginParameters(PluginAudioProcessor* audioProcessor)
 
 void Parameters::registerReverbParameters(PluginAudioProcessor* audioProcessor)
 {
-   audioProcessor-> registerParameter
+   audioProcessor->registerParameter
+        (
+            Parameters::DELAY_ENABLED_ID,
+            "Delay Enabled",
+            Parameters::DELAY_ENABLED_DEFAULT,
+            [audioProcessor](bool value) {
+                audioProcessor->delayProcess.setEnabled(value);
+            },
+            "Bypass the delay."
+        );
+    audioProcessor->registerParameter
+    (
+        Parameters::DELAY_TIME_MS_ID,
+        "Delay Time (ms)",
+        "Time (ms)",
+        Parameters::DELAY_TIME_MS_DEFAULT,
+        1.f,
+        2000.f,
+        [audioProcessor](float value) {
+            audioProcessor->delayProcess.setTimeInMs(value);
+        },
+        "Delay's time in ms."
+    );
+    audioProcessor->registerParameter
+    (
+        Parameters::DELAY_TIMING_ID,
+        "Delay Timing",
+        "Timing",
+        Parameters::DELAY_TIMING_DEFAULT,
+        ndsp::Timing::NOTE_32,
+        ndsp::Timing::NOTE_FOUR_STEP,
+        [audioProcessor](int value) {
+            audioProcessor->delayProcess.setTiming(static_cast<ndsp::Timing::NoteTiming>(value));
+        },
+        "Delay's note timing."
+    );
+    audioProcessor->registerParameter
+    (
+        Parameters::DELAY_FEEDBACK_ID,
+        "Delay Feedback",
+        "Feedback",
+        Parameters::DELAY_FEEDBACK_DEFAULT,
+        0.f,
+        1.f,
+        [audioProcessor](float value) {
+            audioProcessor->reverbProcess.setWidth(value);
+        },
+        "Delay's feedback."
+    );
+    audioProcessor->registerParameter
+    (
+        Parameters::DELAY_HPF_ID,
+        "Delay HPF",
+        "High Pass",
+        Parameters::DELAY_HPF_DEFAULT,
+        20.f,
+        20000.f,
+        [audioProcessor](float value) { audioProcessor->delayProcess.setHPF(value); },
+        "Delay's high pass filter."
+    );
+    audioProcessor->registerParameter
+    (
+        Parameters::DELAY_LPF_ID,
+        "Delay LPF",
+        "Low Pass",
+        Parameters::DELAY_LPF_DEFAULT,
+        20.f,
+        20000.f,
+        [audioProcessor](float value) { audioProcessor->delayProcess.setLPF(value); },
+        "Delay's low pass filter."
+    );
+    audioProcessor->registerParameter
+    (
+        Parameters::DELAY_DRY_WET_ID,
+        "Delay Dry/Wet",
+        "Dry/Wet",
+        Parameters::DELAY_DRY_WET_DEFAULT,
+        0.f,
+        1.f,
+        [audioProcessor](float value) { audioProcessor->delayProcess.setDryWet(value); },
+        "Delay's dry / wet mix."
+    );
+}
+
+void Parameters::registerDelayParameters(PluginAudioProcessor* audioProcessor)
+{
+   audioProcessor->registerParameter
         (
             Parameters::REVERB_ENABLED_ID,
             "Reverb Enabled",
@@ -353,6 +439,9 @@ void Parameters::registerSection(Section section, PluginAudioProcessor* audioPro
             break;
         case REVERB:
             registerReverbParameters(audioProcessor);
+            break;
+        case DELAY:
+            registerDelayParameters(audioProcessor);
             break;
         case CHORUS:
             registerChorusParameters(audioProcessor);

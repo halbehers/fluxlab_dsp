@@ -16,6 +16,7 @@ PluginAudioProcessor::PluginAudioProcessor()
 {
     audioEngine.setEnabled(Parameters::PLUGIN_ENABLED_DEFAULT);
     audioEngine.addProcess("reverb", reverbProcess);
+    audioEngine.addProcess("delay", delayProcess);
     audioEngine.addProcess("phaser", phaserProcess);
     audioEngine.addProcess("chorus", chorusProcess);
     audioEngine.addProcess("dj-filter", djFilterProcess);
@@ -27,6 +28,13 @@ PluginAudioProcessor::PluginAudioProcessor()
     reverbProcess.setHPF(Parameters::REVERB_HPF_DEFAULT);
     reverbProcess.setLPF(Parameters::REVERB_LPF_DEFAULT);
     reverbProcess.setDryWet(Parameters::REVERB_DRY_WET_DEFAULT);
+
+    delayProcess.setEnabled(Parameters::DELAY_ENABLED_DEFAULT);
+    delayProcess.setTimeInMs(Parameters::DELAY_TIME_MS_DEFAULT);
+    delayProcess.setFeedback(Parameters::DELAY_FEEDBACK_DEFAULT);
+    delayProcess.setHPF(Parameters::DELAY_HPF_DEFAULT);
+    delayProcess.setLPF(Parameters::DELAY_LPF_DEFAULT);
+    delayProcess.setDryWet(Parameters::DELAY_DRY_WET_DEFAULT);
 
     phaserProcess.setEnabled(Parameters::PHASER_ENABLED_DEFAULT);
     phaserProcess.setDepth(Parameters::PHASER_DEPTH_DEFAULT);

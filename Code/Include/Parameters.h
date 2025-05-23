@@ -22,6 +22,22 @@ struct Parameters
     static constexpr char REVERB_DRY_WET_ID[] = "reverb-dry-wet";
     static constexpr float REVERB_DRY_WET_DEFAULT = 0.f;
 
+    // Delay.
+    static constexpr char DELAY_ENABLED_ID[] = "delay-enabled";
+    static constexpr bool DELAY_ENABLED_DEFAULT = true;
+    static constexpr char DELAY_TIME_MS_ID[] = "delay-time-ms";
+    static constexpr float DELAY_TIME_MS_DEFAULT = 375.f;
+    static constexpr char DELAY_TIMING_ID[] = "delay-timing";
+    static constexpr int DELAY_TIMING_DEFAULT = ndsp::Timing::NOTE_4;
+    static constexpr char DELAY_FEEDBACK_ID[] = "delay-feedback";
+    static constexpr float DELAY_FEEDBACK_DEFAULT = 0.5f;
+    static constexpr char DELAY_HPF_ID[] = "delay-hpf";
+    static constexpr float DELAY_HPF_DEFAULT = 2000.f;
+    static constexpr char DELAY_LPF_ID[] = "delay-lpf";
+    static constexpr float DELAY_LPF_DEFAULT = 16000.f;
+    static constexpr char DELAY_DRY_WET_ID[] = "delay-dry-wet";
+    static constexpr float DELAY_DRY_WET_DEFAULT = 0.f;
+
     // Phaser.
     static constexpr char PHASER_ENABLED_ID[] = "phaser-enabled";
     static constexpr bool PHASER_ENABLED_DEFAULT = true;
@@ -76,6 +92,7 @@ struct Parameters
     {
         PLUGIN,
         REVERB,
+        DELAY,
         PHASER,
         CHORUS,
         DJ_FILTER,
@@ -84,6 +101,7 @@ struct Parameters
 
     static void registerPluginParameters(PluginAudioProcessor* audioProcessor);
     static void registerReverbParameters(PluginAudioProcessor* audioProcessor);
+    static void registerDelayParameters(PluginAudioProcessor* audioProcessor);
     static void registerPhaserParameters(PluginAudioProcessor* audioProcessor);
     static void registerChorusParameters(PluginAudioProcessor* audioProcessor);
     static void registerDJFilterParameters(PluginAudioProcessor* audioProcessor);

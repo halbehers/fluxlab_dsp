@@ -13,6 +13,7 @@
 #include "OBTAINBeatTracker.h"
 #include "AudioEngine.h"
 #include "ReverbProcess.h"
+#include "DelayProcess.h"
 #include "ChorusProcess.h"
 #include "DJFilterProcess.h"
 #include "CompressorProcess.h"
@@ -70,6 +71,7 @@ public:
     ndsp::SingleChannelSampleFIFO<BlockType> rightChannelFifo { ndsp::Channel::RIGHT };
     ndsp::RMSProcessor rmsProcessor;
     ndsp::ReverbProcess reverbProcess;
+    ndsp::DelayProcess delayProcess;
     ndsp::PhaserProcess phaserProcess;
     ndsp::ChorusProcess chorusProcess;
     ndsp::DJFilterProcess djFilterProcess;

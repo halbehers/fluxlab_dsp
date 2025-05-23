@@ -7,7 +7,7 @@ FXGrid::FXGrid(ndsp::ParameterManager& parameterManager):
     nui::Section("fx-grid", parameterManager),
     _layout(*this),
     _reverb(parameterManager),
-    _delay("delay", parameterManager),
+    _delay(parameterManager),
     _phaser(parameterManager),
     _chorus(parameterManager),
     _filter(parameterManager),

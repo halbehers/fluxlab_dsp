@@ -3,8 +3,8 @@
 #include <nierika_dsp/nierika_dsp.h>
 
 #include "../PluginProcessor.h"
-#include "Component/Section/Test.h"
 #include "Component/Section/Reverb.h"
+#include "Component/Section/Delay.h"
 #include "Component/Section/Phaser.h"
 #include "Component/Section/Chorus.h"
 #include "Component/Section/DJFilter.h"
@@ -28,7 +28,7 @@ private:
     nlayout::GridLayout<Component> _layout;
 
     nierika::gui::section::Reverb _reverb;
-    section::Test _delay;
+    nierika::gui::section::Delay _delay;
     nierika::gui::section::Phaser _phaser;
     nierika::gui::section::Chorus _chorus;
     nierika::gui::section::DJFilter _filter;

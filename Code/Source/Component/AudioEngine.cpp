@@ -17,13 +17,13 @@ void AudioEngine::setEnabled(bool isEnabled) noexcept
 
 void AudioEngine::prepare(const juce::dsp::ProcessSpec& spec)
 {
-    for (std::unique_ptr<Process>& process : _processes)
+    for (const std::unique_ptr<Process>& process : _processes)
         process->audioProcess.prepare(spec);
 }
 
 void AudioEngine::reset() noexcept
 {
-    for (std::unique_ptr<Process>& process : _processes)
+    for (const std::unique_ptr<Process>& process : _processes)
         process->audioProcess.reset();
 }
 
@@ -31,7 +31,7 @@ void AudioEngine::process(const juce::dsp::ProcessContextReplacing<float>& conte
 {
     if (!shouldProcess()) return;
 
-    for (std::unique_ptr<Process>& process : _processes)
+    for (const std::unique_ptr<Process>& process : _processes)
     {
         if (!process->audioProcess.shouldProcess()) continue;
 
