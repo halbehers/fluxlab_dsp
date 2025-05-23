@@ -27,12 +27,7 @@ FXGrid::FXGrid(ndsp::ParameterManager& parameterManager):
     _layout.addComponent(_chorus, 1, 0, 1, 1);
     _layout.addComponent(_filter, 1, 1, 1, 1);
     _layout.addComponent(_compressor, 1, 2, 1, 1);
-    
-    _layout.setResizableLine({ .position = 1, .direction = nlayout::GridLayout<nui::Component>::HORIZONTAL });
-    _layout.setResizableLine({ .position = 1, .direction = nlayout::GridLayout<nui::Component>::VERTICAL });
-    _layout.setResizableLine({ .position = 2, .direction = nlayout::GridLayout<nui::Component>::HORIZONTAL });
-    _layout.setResizableLine({ .position = 2, .direction = nlayout::GridLayout<nui::Component>::VERTICAL });
-    
+
     _layout.setMovable(_reverb.getID(), true);
     _layout.setMovable(_delay.getID(), true);
     _layout.setMovable(_phaser.getID(), true);

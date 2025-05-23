@@ -48,19 +48,37 @@ void DelayProcess::process(const juce::dsp::ProcessContextReplacing<float>& cont
     if (!isEnabled()) return;
 
     _dryWetMixer.pushDrySamples(context.getInputBlock());
-    _delayProcess.process(context);
-
-
-    for (int sample = 0; sample < context.getInputBlock().getNumSamples(); ++sample)
-    {
-        const float output = _delayProcess.popSample(channel);
-        _delayProcess.pushSample(channel, channelData[sample] + feedback * output);
-        context.getOutputBlock()[sample] += output;
-    }
-
+    processDelay(context);
     _highPassFilter.process(context);
     _lowPassFilter.process(context);
     _dryWetMixer.mixWetSamples(context.getOutputBlock());
+}
+
+// TODO: add smoothing when changing delay time and feedback
+// TODO: AND maybe add a filter or some modulation on the feedback signal ?
+void DelayProcess::processDelay(const juce::dsp::ProcessContextReplacing<float>& context) noexcept
+{
+    auto& inputBlock = context.getInputBlock();
+    const auto& outputBlock = context.getOutputBlock();
+
+    const auto numChannels = inputBlock.getNumChannels();
+    const auto numSamples = inputBlock.getNumSamples();
+
+    for (size_t channel = 0; channel < numChannels; ++channel)
+    {
+        auto* input = inputBlock.getChannelPointer(channel);
+        auto* output = outputBlock.getChannelPointer(channel);
+
+        for (size_t i = 0; i < numSamples; ++i)
+        {
+            const float delayedSample = _delayProcess.popSample(static_cast<int>(channel));
+
+            const float toDelay = input[i] + delayedSample * _feedback;
+            _delayProcess.pushSample(static_cast<int>(channel), toDelay);
+
+            output[i] = delayedSample;
+        }
+    }
 }
 
 void DelayProcess::setTimeInMs(float value)

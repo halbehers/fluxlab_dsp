@@ -40,6 +40,7 @@ private:
     juce::dsp::ProcessorDuplicator<juce::dsp::IIR::Filter<float>, juce::dsp::IIR::Coefficients<float>> _lowPassFilter;
 
     float convertMsToSamples(float timeInMs) const;
+    void processDelay(const juce::dsp::ProcessContextReplacing<float>& context) noexcept;
 };
 
 }
