@@ -15,7 +15,7 @@ public:
     void paint(juce::Graphics&) override;
 
 private:
-    element::Dial _value;
+    element::DJFilterDial _value;
     element::Dial _q;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DJFilter)

@@ -28,12 +28,12 @@ FXGrid::FXGrid(ndsp::ParameterManager& parameterManager):
     _layout.addComponent(_filter, 1, 1, 1, 1);
     _layout.addComponent(_compressor, 1, 2, 1, 1);
 
-    _layout.setMovable(_reverb.getID(), true);
-    _layout.setMovable(_delay.getID(), true);
-    _layout.setMovable(_phaser.getID(), true);
-    _layout.setMovable(_chorus.getID(), true);
-    _layout.setMovable(_filter.getID(), true);
-    _layout.setMovable(_compressor.getID(), true);
+    // _layout.setMovable(_reverb.getID(), true);
+    // _layout.setMovable(_delay.getID(), true);
+    // _layout.setMovable(_phaser.getID(), true);
+    // _layout.setMovable(_chorus.getID(), true);
+    // _layout.setMovable(_filter.getID(), true);
+    // _layout.setMovable(_compressor.getID(), true);
 }
 
 void FXGrid::paint(juce::Graphics& g)

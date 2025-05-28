@@ -4,7 +4,7 @@
 
 #include "PluginProcessor.h"
 #include "Component/Section/Test.h"
-#include "Component/TempoSection.h"
+#include "Component/Section/Tempo.h"
 #include "Component/FXGrid.h"
 
 class AppLayout : public nlayout::AppLayout
@@ -19,10 +19,9 @@ private:
     nelement::Title _title { "Flux Lab" };
     nelement::Levels _audioLevels;
     nelement::SpectrumAnalyzer _audioSpectrum;
-    component::TempoSection _tempoSection;
+    nierika::gui::section::Tempo _tempoSection;
     component::section::Test _tabs;
     component::FXGrid _fxGrid;
-    component::section::Test _footer;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(AppLayout)
 };

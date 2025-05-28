@@ -8,6 +8,10 @@ struct Parameters
     static constexpr char PLUGIN_ENABLED_ID[] = "plugin-enabled";
     static constexpr bool PLUGIN_ENABLED_DEFAULT = true;
 
+    // Tempo.
+    static constexpr char TEMPO_VALUE_ID[] = "tempo-value";
+    static constexpr float TEMPO_VALUE_DEFAULT = 120.f;
+
     // Reverb.
     static constexpr char REVERB_ENABLED_ID[] = "reverb-enabled";
     static constexpr bool REVERB_ENABLED_DEFAULT = true;
@@ -91,6 +95,7 @@ struct Parameters
     enum Section
     {
         PLUGIN,
+        TEMPO,
         REVERB,
         DELAY,
         PHASER,
@@ -100,6 +105,7 @@ struct Parameters
     };
 
     static void registerPluginParameters(PluginAudioProcessor* audioProcessor);
+    static void registerTempoParameters(PluginAudioProcessor* audioProcessor);
     static void registerReverbParameters(PluginAudioProcessor* audioProcessor);
     static void registerDelayParameters(PluginAudioProcessor* audioProcessor);
     static void registerPhaserParameters(PluginAudioProcessor* audioProcessor);

@@ -12,6 +12,23 @@ void Parameters::registerPluginParameters(PluginAudioProcessor* audioProcessor)
             );
 }
 
+void Parameters::registerTempoParameters(PluginAudioProcessor* audioProcessor)
+{
+    audioProcessor->registerParameter
+           (
+               Parameters::TEMPO_VALUE_ID,
+               "Tempo Value",
+               Parameters::TEMPO_VALUE_DEFAULT,
+               20.f,
+               200.f,
+               [audioProcessor](float value) {
+                   audioProcessor->bpm = value;
+                   audioProcessor->delayProcess.setBPM(value);
+               },
+               "The tempo selection."
+            );
+}
+
 void Parameters::registerReverbParameters(PluginAudioProcessor* audioProcessor)
 {
     audioProcessor->registerParameter
@@ -76,7 +93,7 @@ void Parameters::registerReverbParameters(PluginAudioProcessor* audioProcessor)
     (
         Parameters::REVERB_DRY_WET_ID,
         "Reverb Dry/Wet",
-        "Dry/Wet",
+        "Dry / Wet",
         Parameters::REVERB_DRY_WET_DEFAULT,
         0.f,
         1.f,
@@ -162,7 +179,7 @@ void Parameters::registerDelayParameters(PluginAudioProcessor* audioProcessor)
     (
         Parameters::DELAY_DRY_WET_ID,
         "Delay Dry/Wet",
-        "Dry/Wet",
+        "Dry / Wet",
         Parameters::DELAY_DRY_WET_DEFAULT,
         0.f,
         1.f,
@@ -235,7 +252,7 @@ void Parameters::registerPhaserParameters(PluginAudioProcessor* audioProcessor)
     (
         Parameters::PHASER_DRY_WET_ID,
         "Phaser Dry/Wet",
-        "Dry/Wet",
+        "Dry / Wet",
         Parameters::PHASER_DRY_WET_DEFAULT,
         0.f,
         1.f,
@@ -308,7 +325,7 @@ void Parameters::registerChorusParameters(PluginAudioProcessor* audioProcessor)
     (
         Parameters::CHORUS_DRY_WET_ID,
         "Chorus Dry/Wet",
-        "Dry/Wet",
+        "Dry / Wet",
         Parameters::CHORUS_DRY_WET_DEFAULT,
         0.f,
         1.f,
@@ -421,7 +438,7 @@ void Parameters::registerCompressorParameters(PluginAudioProcessor* audioProcess
     (
         Parameters::COMPRESSOR_DRY_WET_ID,
         "Compressor Dry/Wet",
-        "Dry/Wet",
+        "Dry / Wet",
         Parameters::COMPRESSOR_DRY_WET_DEFAULT,
         0.f,
         1.f,
@@ -436,6 +453,9 @@ void Parameters::registerSection(Section section, PluginAudioProcessor* audioPro
     {
         case PLUGIN:
             registerPluginParameters(audioProcessor);
+            break;
+        case TEMPO:
+            registerTempoParameters(audioProcessor);
             break;
         case REVERB:
             registerReverbParameters(audioProcessor);

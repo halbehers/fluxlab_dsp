@@ -11,14 +11,14 @@ DJFilter::DJFilter(ndsp::ParameterManager& parameterManager):
 {
     setSectionName("DJ Filter");
 
-    registerComponent(_value);
-    registerComponent(_q);
+    getActiveLayout().init({ 1, 2 }, { 4, 9, 6, 4 });
 
-    initLayout();
+    getActiveLayout().addComponent(_value, 0, 1, 1, 2);
+    getActiveLayout().addComponent(_q, 1, 2, 1, 1);
 
     constexpr float baseMargin = 12.f;
-    constexpr float horizontalMargin = 32.f;
-    setLayoutMargin(baseMargin, baseMargin - 12.f + horizontalMargin, baseMargin, baseMargin + horizontalMargin);
+    constexpr float verticalMargin = 24.f;
+    setLayoutMargin(baseMargin, baseMargin - 12.f + verticalMargin, baseMargin, baseMargin + verticalMargin);
     setLayoutDisplayGrid(false);
 }
 
