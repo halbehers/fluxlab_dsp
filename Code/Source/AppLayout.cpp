@@ -6,6 +6,7 @@ AppLayout::AppLayout(ndsp::ParameterManager& parameterManager, PluginAudioProces
     _audioLevels("audio-levels", audioProcessor.rmsProcessor),
     _audioSpectrum("audio-spectrum", audioProcessor, &audioProcessor.leftChannelFifo, &audioProcessor.rightChannelFifo),
     _tempoSection("tempo-section", parameterManager),
+    _crossfader("crossfader", parameterManager),
     _tabs("tabs", parameterManager),
     _fxGrid(audioProcessor)
 {
@@ -15,14 +16,15 @@ AppLayout::AppLayout(ndsp::ParameterManager& parameterManager, PluginAudioProces
     getLayout().setResizableLineConfiguration({ .displayLine = false });
 
     getLayout().setMargin(24.f, 12.f, 24.f, 12.f + 20.f + 16.f);
-    getLayout().init({ 3, 12, 5, 40 }, { 1, 10, 40 });
+    getLayout().init({ 3, 12, 5, 40 }, { 1, 16, 17, 17 });
 
-    getLayout().addComponent("title", _title, 0, 0, 3, 1);
+    getLayout().addComponent("title", _title, 0, 0, 4, 1);
     getLayout().addComponent("audio-levels", _audioLevels, 1, 0, 1, 1);
-    getLayout().addComponent("audio-spectrum", _audioSpectrum, 1, 1, 2, 1);
+    getLayout().addComponent("audio-spectrum", _audioSpectrum, 1, 1, 3, 1);
     getLayout().addComponent("tempo-section", _tempoSection, 2, 0, 2, 1);
-    getLayout().addComponent("tabs", _tabs, 2, 2, 1, 1);
-    getLayout().addComponent("fx-grid", _fxGrid, 3, 0, 3, 1);
+    getLayout().addComponent("crossfader", _crossfader, 2, 2, 1, 1);
+    getLayout().addComponent("tabs", _tabs, 2, 3, 1, 1);
+    getLayout().addComponent("fx-grid", _fxGrid, 3, 0, 4, 1);
     
     displayTooltip();
 }

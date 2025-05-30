@@ -20,6 +20,7 @@ private:
     nelement::Levels _audioLevels;
     nelement::SpectrumAnalyzer _audioSpectrum;
     nierika::gui::section::Tempo _tempoSection;
+    component::section::Test _crossfader;
     component::section::Test _tabs;
     component::FXGrid _fxGrid;
 
