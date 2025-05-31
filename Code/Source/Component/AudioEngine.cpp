@@ -17,12 +17,18 @@ void AudioEngine::setEnabled(bool isEnabled) noexcept
 
 void AudioEngine::prepare(const juce::dsp::ProcessSpec& spec)
 {
+    _dryWetMixer.prepare(spec);
+    _dryWetMixer.setMixingRule(juce::dsp::DryWetMixingRule::balanced);
+
     for (const std::unique_ptr<Process>& process : _processes)
         process->audioProcess.prepare(spec);
 }
 
 void AudioEngine::reset() noexcept
 {
+    _dryWetMixer.reset();
+    _dryWetMixer.setMixingRule(juce::dsp::DryWetMixingRule::balanced);
+
     for (const std::unique_ptr<Process>& process : _processes)
         process->audioProcess.reset();
 }
@@ -31,12 +37,16 @@ void AudioEngine::process(const juce::dsp::ProcessContextReplacing<float>& conte
 {
     if (!shouldProcess()) return;
 
+    _dryWetMixer.pushDrySamples(context.getInputBlock());
+
     for (const std::unique_ptr<Process>& process : _processes)
     {
         if (!process->audioProcess.shouldProcess()) continue;
 
         process->audioProcess.process(context);
     }
+
+    _dryWetMixer.mixWetSamples(context.getOutputBlock());
 }
 
 void AudioEngine::addProcess(const std::string& identifier, AudioProcess& process)
@@ -63,6 +73,13 @@ void AudioEngine::moveProcess(const std::string& identifier, int newPosition)
     }
 }
 
+void AudioEngine::swapProcesses(const std::string& firstProcessID, const std::string& secondProcessID)
+{
+    const int secondProcessPosition = getPosition(secondProcessID);
+
+    moveProcess(firstProcessID, secondProcessPosition);
+}
+
 void AudioEngine::removeProcess(const std::string& identifier)
 {
     auto it = std::remove_if(_processes.begin(), _processes.end(), [&identifier](const std::unique_ptr<Process>& process) {
@@ -79,6 +96,13 @@ void AudioEngine::removeProcess(const std::string& identifier)
 int AudioEngine::count() const
 {
     return static_cast<int>(_processes.size());
+}
+
+void AudioEngine::setDryWet(float value)
+{
+    jassert(value >= 0.f && value <= 1.f);
+
+    _dryWetMixer.setWetMixProportion(value);
 }
 
 int AudioEngine::getPosition(const std::string& identifier) const

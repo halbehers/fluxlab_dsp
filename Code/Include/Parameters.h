@@ -12,7 +12,11 @@ struct Parameters
     static constexpr char TEMPO_VALUE_ID[] = "tempo-value";
     static constexpr float TEMPO_VALUE_DEFAULT = 120.f;
 
+    static constexpr char CROSSFADER_VALUE_ID[] = "crossfader-value";
+    static constexpr float CROSSFADER_VALUE_DEFAULT = 0.f;
+
     // Reverb.
+    static constexpr char REVERB_SECTION_ID[] = "reverb";
     static constexpr char REVERB_ENABLED_ID[] = "reverb-enabled";
     static constexpr bool REVERB_ENABLED_DEFAULT = true;
     static constexpr char REVERB_SIZE_ID[] = "reverb-size";
@@ -27,6 +31,7 @@ struct Parameters
     static constexpr float REVERB_DRY_WET_DEFAULT = 0.f;
 
     // Delay.
+    static constexpr char DELAY_SECTION_ID[] = "delay";
     static constexpr char DELAY_ENABLED_ID[] = "delay-enabled";
     static constexpr bool DELAY_ENABLED_DEFAULT = true;
     static constexpr char DELAY_TIME_MS_ID[] = "delay-time-ms";
@@ -43,6 +48,7 @@ struct Parameters
     static constexpr float DELAY_DRY_WET_DEFAULT = 0.f;
 
     // Phaser.
+    static constexpr char PHASER_SECTION_ID[] = "phaser";
     static constexpr char PHASER_ENABLED_ID[] = "phaser-enabled";
     static constexpr bool PHASER_ENABLED_DEFAULT = true;
     static constexpr char PHASER_RATE_ID[] = "phaser-rate";
@@ -57,6 +63,7 @@ struct Parameters
     static constexpr float PHASER_DRY_WET_DEFAULT = 0.f;
 
     // Chorus.
+    static constexpr char CHORUS_SECTION_ID[] = "chorus";
     static constexpr char CHORUS_ENABLED_ID[] = "chorus-enabled";
     static constexpr bool CHORUS_ENABLED_DEFAULT = true;
     static constexpr char CHORUS_RATE_ID[] = "chorus-rate";
@@ -71,6 +78,7 @@ struct Parameters
     static constexpr float CHORUS_DRY_WET_DEFAULT = 0.f;
 
     // DJ Filter.
+    static constexpr char DJ_FILTER_SECTION_ID[] = "dj-filter";
     static constexpr char DJ_FILTER_ENABLED_ID[] = "dj-filter-enabled";
     static constexpr bool DJ_FILTER_ENABLED_DEFAULT = true;
     static constexpr char DJ_FILTER_VALUE_ID[] = "dj-filter-value";
@@ -79,6 +87,7 @@ struct Parameters
     static constexpr float DJ_FILTER_Q_DEFAULT = .707f;
 
     // Compressor.
+    static constexpr char COMPRESSOR_SECTION_ID[] = "compressor";
     static constexpr char COMPRESSOR_ENABLED_ID[] = "compressor-enabled";
     static constexpr bool COMPRESSOR_ENABLED_DEFAULT = true;
     static constexpr char COMPRESSOR_THRESHOLD_ID[] = "compressor-threshold";
@@ -96,6 +105,7 @@ struct Parameters
     {
         PLUGIN,
         TEMPO,
+        CROSSFADER,
         REVERB,
         DELAY,
         PHASER,
@@ -106,6 +116,7 @@ struct Parameters
 
     static void registerPluginParameters(PluginAudioProcessor* audioProcessor);
     static void registerTempoParameters(PluginAudioProcessor* audioProcessor);
+    static void registerCrossfaderParameters(PluginAudioProcessor* audioProcessor);
     static void registerReverbParameters(PluginAudioProcessor* audioProcessor);
     static void registerDelayParameters(PluginAudioProcessor* audioProcessor);
     static void registerPhaserParameters(PluginAudioProcessor* audioProcessor);

@@ -5,7 +5,7 @@ namespace nierika::gui::section
 {
 
 Compressor::Compressor(ndsp::ParameterManager& parameterManager):
-    Section("compressor-section", parameterManager, Parameters::COMPRESSOR_ENABLED_ID),
+    Section(Parameters::COMPRESSOR_SECTION_ID, parameterManager, Parameters::COMPRESSOR_ENABLED_ID),
     _threshold(parameterManager, Parameters::COMPRESSOR_THRESHOLD_ID, "dB"),
     _ratio(parameterManager, Parameters::COMPRESSOR_RATIO_ID),
     _attack(parameterManager, Parameters::COMPRESSOR_ATTACK_ID),

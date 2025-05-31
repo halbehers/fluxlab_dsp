@@ -77,7 +77,6 @@ public:
     ndsp::DJFilterProcess djFilterProcess;
     ndsp::CompressorProcess compressorProcess;
     ndsp::AudioEngine audioEngine;
-    float bpm;
 
 private:
     dsp::OBTAINBeatTracker _beatTracker;

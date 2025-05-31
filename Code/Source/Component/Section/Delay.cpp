@@ -5,7 +5,7 @@ namespace nierika::gui::section
 {
 
 Delay::Delay(ndsp::ParameterManager& parameterManager):
-    Section("delay-section", parameterManager, Parameters::DELAY_ENABLED_ID),
+    Section(Parameters::DELAY_SECTION_ID, parameterManager, Parameters::DELAY_ENABLED_ID),
     _timing(parameterManager, Parameters::DELAY_TIMING_ID),
     _feedback(parameterManager, Parameters::DELAY_FEEDBACK_ID),
     _highPass(parameterManager, Parameters::DELAY_HPF_ID),

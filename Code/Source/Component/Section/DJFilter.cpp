@@ -5,7 +5,7 @@ namespace nierika::gui::section
 {
 
 DJFilter::DJFilter(ndsp::ParameterManager& parameterManager):
-    Section("dj-filter-section", parameterManager, Parameters::DJ_FILTER_ENABLED_ID),
+    Section(Parameters::DJ_FILTER_SECTION_ID, parameterManager, Parameters::DJ_FILTER_ENABLED_ID),
     _value(parameterManager, Parameters::DJ_FILTER_VALUE_ID),
     _q(parameterManager, Parameters::DJ_FILTER_Q_ID)
 {

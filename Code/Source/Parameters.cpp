@@ -17,15 +17,30 @@ void Parameters::registerTempoParameters(PluginAudioProcessor* audioProcessor)
     audioProcessor->registerParameter
            (
                Parameters::TEMPO_VALUE_ID,
-               "Tempo Value",
+               "Tempo",
                Parameters::TEMPO_VALUE_DEFAULT,
                20.f,
                200.f,
                [audioProcessor](float value) {
-                   audioProcessor->bpm = value;
                    audioProcessor->delayProcess.setBPM(value);
                },
                "The tempo selection."
+            );
+}
+
+void Parameters::registerCrossfaderParameters(PluginAudioProcessor* audioProcessor)
+{
+    audioProcessor->registerParameter
+           (
+               Parameters::CROSSFADER_VALUE_ID,
+               "Crossfader",
+               Parameters::CROSSFADER_VALUE_DEFAULT,
+               0.f,
+               1.f,
+               [audioProcessor](float value) {
+                   audioProcessor->audioEngine.setDryWet(value);
+               },
+               "The main crossfader to select how much of the wet signal is going through."
             );
 }
 
@@ -456,6 +471,9 @@ void Parameters::registerSection(Section section, PluginAudioProcessor* audioPro
             break;
         case TEMPO:
             registerTempoParameters(audioProcessor);
+            break;
+        case CROSSFADER:
+            registerCrossfaderParameters(audioProcessor);
             break;
         case REVERB:
             registerReverbParameters(audioProcessor);

@@ -5,7 +5,7 @@ namespace nierika::gui::section
 {
 
 Reverb::Reverb(ndsp::ParameterManager& parameterManager):
-    Section("reverb-section", parameterManager, Parameters::REVERB_ENABLED_ID),
+    Section(Parameters::REVERB_SECTION_ID, parameterManager, Parameters::REVERB_ENABLED_ID),
     _size(parameterManager, Parameters::REVERB_SIZE_ID),
     _width(parameterManager, Parameters::REVERB_WIDTH_ID),
     _highPass(parameterManager, Parameters::REVERB_HPF_ID),

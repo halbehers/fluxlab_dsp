@@ -13,19 +13,22 @@
 namespace component
 {
 
-class FXGrid final : public nui::Section
+class FXGrid final : public nui::Section, public nlayout::GridLayout<nui::Component>::Listener
 {
 public:
-    explicit FXGrid(ndsp::ParameterManager& parameterManager);
+    explicit FXGrid(ndsp::ParameterManager& parameterManager, ndsp::AudioEngine& audioEngine);
     ~FXGrid() override = default;
     
     void paint(juce::Graphics& g) override;
     void resized() override;
     
     void bypassComponents(bool isBypassed) override;
+
+    void onItemSwaped(const std::string& firstSwapedItemID, const std::string& secondSwapedItemID) override;
     
 private:
-    nlayout::GridLayout<Component> _layout;
+    nlayout::GridLayout<nui::Component> _layout;
+    ndsp::AudioEngine& _audioEngine;
 
     nierika::gui::section::Reverb _reverb;
     nierika::gui::section::Delay _delay;

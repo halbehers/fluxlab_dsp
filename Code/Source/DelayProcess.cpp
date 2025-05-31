@@ -85,12 +85,16 @@ void DelayProcess::setTimeInMs(float value)
 {
     if (_isSync) return;
 
+    _timeInMs = value;
+
     _delayProcess.setDelay(convertMsToSamples(value));
 }
 
 void DelayProcess::setTiming(Timing::NoteTiming timing)
 {
     if (!_isSync) return;
+
+    _timing = timing;
 
     _delayProcess.setDelay(convertMsToSamples(Timing::getTimeInMs(_bpm, timing)));
 }
@@ -103,6 +107,9 @@ void DelayProcess::setFeedback(float value)
 void DelayProcess::setBPM(double value)
 {
     _bpm = value;
+
+    if (_isSync) setTiming(_timing);
+    else setTimeInMs(_timeInMs);
 }
 
 void DelayProcess::setDryWet(float value)

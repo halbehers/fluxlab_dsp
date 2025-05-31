@@ -14,7 +14,7 @@ Tempo::Tempo(const std::string& identifier, ndsp::ParameterManager& parameterMan
     initLayout();
 }
 
-void Tempo::paint (juce::Graphics& g)
+void Tempo::paint(juce::Graphics& g)
 {
     displayBorder();
     displayBackground();

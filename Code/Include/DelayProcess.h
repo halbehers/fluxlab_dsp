@@ -34,6 +34,8 @@ private:
     double _bpm = 120.0;
     float _feedback = 0.0f;
     bool _isSync = true;
+    float _timeInMs = 0.f;
+    Timing::NoteTiming _timing = Timing::NoteTiming::NOTE_4;
     juce::dsp::DelayLine<float> _delayProcess;
     juce::dsp::DryWetMixer<float> _dryWetMixer;
     juce::dsp::ProcessorDuplicator<juce::dsp::IIR::Filter<float>, juce::dsp::IIR::Coefficients<float>> _highPassFilter;

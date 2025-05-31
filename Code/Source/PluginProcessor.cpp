@@ -15,12 +15,12 @@ PluginAudioProcessor::PluginAudioProcessor()
 #endif
 {
     audioEngine.setEnabled(Parameters::PLUGIN_ENABLED_DEFAULT);
-    audioEngine.addProcess("reverb", reverbProcess);
-    audioEngine.addProcess("delay", delayProcess);
-    audioEngine.addProcess("phaser", phaserProcess);
-    audioEngine.addProcess("chorus", chorusProcess);
-    audioEngine.addProcess("dj-filter", djFilterProcess);
-    audioEngine.addProcess("compressor", compressorProcess);
+    audioEngine.addProcess(Parameters::REVERB_SECTION_ID, reverbProcess);
+    audioEngine.addProcess(Parameters::DELAY_SECTION_ID, delayProcess);
+    audioEngine.addProcess(Parameters::PHASER_SECTION_ID, phaserProcess);
+    audioEngine.addProcess(Parameters::CHORUS_SECTION_ID, chorusProcess);
+    audioEngine.addProcess(Parameters::DJ_FILTER_SECTION_ID, djFilterProcess);
+    audioEngine.addProcess(Parameters::COMPRESSOR_SECTION_ID, compressorProcess);
 
     reverbProcess.setEnabled(Parameters::REVERB_ENABLED_DEFAULT);
     reverbProcess.setSize(Parameters::REVERB_SIZE_DEFAULT);

@@ -5,7 +5,7 @@ namespace nierika::gui::section
 {
 
 Chorus::Chorus(ndsp::ParameterManager& parameterManager):
-    Section("chorus-section", parameterManager, Parameters::CHORUS_ENABLED_ID),
+    Section(Parameters::CHORUS_SECTION_ID, parameterManager, Parameters::CHORUS_ENABLED_ID),
     _rate(parameterManager, Parameters::CHORUS_RATE_ID),
     _depth(parameterManager, Parameters::CHORUS_DEPTH_ID),
     _highPass(parameterManager, Parameters::CHORUS_HPF_ID),

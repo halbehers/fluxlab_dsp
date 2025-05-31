@@ -19,7 +19,10 @@ public:
 
     void addProcess(const std::string& identifier, AudioProcess& process);
     void moveProcess(const std::string& identifier, int newPosition);
+    void swapProcesses(const std::string& firstProcessID, const std::string& secondProcessID);
     void removeProcess(const std::string& identifier);
+
+    void setDryWet(float value);
 
 private:
     struct Process
@@ -29,6 +32,8 @@ private:
     };
     bool _isEnabled = true;
     std::vector<std::unique_ptr<Process>> _processes;
+
+    juce::dsp::DryWetMixer<float> _dryWetMixer;
 
     [[nodiscard]] int count() const;
     [[nodiscard]] int getPosition(const std::string& identifier) const;

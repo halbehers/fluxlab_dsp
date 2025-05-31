@@ -53,7 +53,7 @@ void ChorusProcess::process(const juce::dsp::ProcessContextReplacing<float>& con
     _chorusProcess.process(context);
     _highPassFilter.process(context);
     _lowPassFilter.process(context);
-    _dryWetMixer.mixWetSamples(context.getOutputBlock() );
+    _dryWetMixer.mixWetSamples(context.getOutputBlock());
 }
 
 void ChorusProcess::setRate(float value)

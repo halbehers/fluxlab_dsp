@@ -5,7 +5,7 @@ namespace nierika::gui::section
 {
 
 Phaser::Phaser(ndsp::ParameterManager& parameterManager):
-    Section("phaser-section", parameterManager, Parameters::PHASER_ENABLED_ID),
+    Section(Parameters::PHASER_SECTION_ID, parameterManager, Parameters::PHASER_ENABLED_ID),
     _rate(parameterManager, Parameters::PHASER_RATE_ID),
     _depth(parameterManager, Parameters::PHASER_DEPTH_ID),
     _highPass(parameterManager, Parameters::PHASER_HPF_ID),
