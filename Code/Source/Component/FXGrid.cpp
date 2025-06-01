@@ -4,7 +4,7 @@ namespace component
 {
 
 FXGrid::FXGrid(ndsp::ParameterManager& parameterManager, ndsp::AudioEngine& audioEngine):
-    nui::Section("fx-grid", parameterManager),
+    Section("fx-grid", parameterManager),
     _layout(*this),
     _audioEngine(audioEngine),
     _reverb(parameterManager),
@@ -40,7 +40,7 @@ FXGrid::FXGrid(ndsp::ParameterManager& parameterManager, ndsp::AudioEngine& audi
 
 void FXGrid::paint(juce::Graphics& g)
 {
-    nui::Section::paint(g);
+    Section::paint(g);
     _layout.paint(g);
 }
 

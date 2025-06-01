@@ -14,6 +14,8 @@ PluginAudioProcessor::PluginAudioProcessor()
                        ), ndsp::ParameterManager(dynamic_cast<juce::AudioProcessor&>(*this), [this]() { return getParameterLayout(); })
 #endif
 {
+
+
     audioEngine.setEnabled(Parameters::PLUGIN_ENABLED_DEFAULT);
     audioEngine.addProcess(Parameters::REVERB_SECTION_ID, reverbProcess);
     audioEngine.addProcess(Parameters::DELAY_SECTION_ID, delayProcess);
@@ -162,8 +164,7 @@ void PluginAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 
 void PluginAudioProcessor::releaseResources()
 {
-    // When playback stops, you can use this as an opportunity to free up any
-    // spare memory, etc.
+    nutils::Logger::markShuttingDown();
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations

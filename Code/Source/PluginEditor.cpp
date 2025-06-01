@@ -23,8 +23,8 @@ void PluginAudioProcessorEditor::setBypass(bool isBypassed)
 
 void PluginAudioProcessorEditor::paint(juce::Graphics& g)
 {
-    juce::Colour primaryColor = nui::Theme::getInstance().getColor(nui::Theme::PRIMARY).asJuce();
-    juce::Colour darkShadeColor = nui::Theme::getInstance().getColor(nui::Theme::DARK_SHADE).asJuce();
+    juce::Colour primaryColor = nui::Theme::newColor(nui::Theme::PRIMARY).asJuce();
+    juce::Colour darkShadeColor = nui::Theme::newColor(nui::Theme::DARK_SHADE).asJuce();
     g.setGradientFill(juce::ColourGradient(primaryColor, 0.0, 0.0, darkShadeColor, 800.0, 600.0, false));
     g.fillAll();
 }

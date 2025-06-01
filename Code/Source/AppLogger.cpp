@@ -2,5 +2,5 @@
 
 nutils::Logger& nutils::AppLogger::get()
 {
-    return nutils::Logger::getInstance("Nierika");
+    return Logger::getInstance("Nierika");
 }

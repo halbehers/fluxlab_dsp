@@ -33,3 +33,4 @@ void AppLayout::bypassComponents(bool isBypassed)
 {
     _fxGrid.setBypass(isBypassed);
 }
+

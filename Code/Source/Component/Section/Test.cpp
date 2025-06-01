@@ -13,7 +13,7 @@ Test::Test(const std::string& identifier, ndsp::ParameterManager& parameterManag
 
 Test::~Test()
 {
-    nui::TooltipManager::getInstance().unregisterComponent(*this);
+        nui::TooltipManager::getInstance().unregisterComponent(*this);
 }
 
 void Test::paint (juce::Graphics& g)

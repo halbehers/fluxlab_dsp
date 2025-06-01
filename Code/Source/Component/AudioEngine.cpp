@@ -58,7 +58,7 @@ void AudioEngine::moveProcess(const std::string& identifier, int newPosition)
 {
     if (newPosition < 0 || newPosition >= static_cast<int>(_processes.size()))
     {
-        nutils::AppLogger::get().error("Position out of range", "AudioEngine::moveProcess");
+        nutils::AppLogger::error("Position out of range", "AudioEngine::moveProcess");
         throw std::out_of_range("AudioEngine::moveProcess: position out of range");
     }
 
@@ -68,7 +68,7 @@ void AudioEngine::moveProcess(const std::string& identifier, int newPosition)
     }
     else
     {
-        nutils::AppLogger::get().error("Identifier " + identifier + " not found", "AudioEngine::moveProcess");
+        nutils::AppLogger::error("Identifier " + identifier + " not found", "AudioEngine::moveProcess");
         throw std::out_of_range("AudioEngine::moveProcess: Identifier " + identifier + " not found");
     }
 }
@@ -88,7 +88,7 @@ void AudioEngine::removeProcess(const std::string& identifier)
 
     if (it == _processes.end())
     {
-        nutils::AppLogger::get().error("Identifier " + identifier + " not found", "AudioEngine::removeProcess");
+        nutils::AppLogger::error("Identifier " + identifier + " not found", "AudioEngine::removeProcess");
         throw std::out_of_range("AudioEngine::removeProcess: Identifier " + identifier + " not found");
     }
 }
@@ -127,7 +127,7 @@ const AudioProcess& AudioEngine::getAudioProcess(int position) const
 {
     if (position < 0 || position >= static_cast<int>(_processes.size()))
     {
-        nutils::AppLogger::get().error("Position out of range", "AudioEngine::getAudioProcess");
+        nutils::AppLogger::error("Position out of range", "AudioEngine::getAudioProcess");
         throw std::out_of_range("AudioEngine::getAudioProcess: position out of range");
     }
 

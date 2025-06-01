@@ -7,7 +7,7 @@
 #include "Component/Section/Tempo.h"
 #include "Component/FXGrid.h"
 
-class AppLayout : public nlayout::AppLayout
+class AppLayout final : public nlayout::AppLayout
 {
 public:
     AppLayout(ndsp::ParameterManager& parameterManager, PluginAudioProcessor& audioProcessor);
