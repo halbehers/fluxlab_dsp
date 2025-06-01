@@ -17,6 +17,7 @@ PluginAudioProcessor::PluginAudioProcessor()
 
 
     audioEngine.setEnabled(Parameters::PLUGIN_ENABLED_DEFAULT);
+    audioEngine.setDryWet(Parameters::CROSSFADER_VALUE_DEFAULT);
     audioEngine.addProcess(Parameters::REVERB_SECTION_ID, reverbProcess);
     audioEngine.addProcess(Parameters::DELAY_SECTION_ID, delayProcess);
     audioEngine.addProcess(Parameters::PHASER_SECTION_ID, phaserProcess);

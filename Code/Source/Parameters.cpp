@@ -4,9 +4,9 @@ void Parameters::registerPluginParameters(PluginAudioProcessor* audioProcessor)
 {
     audioProcessor->registerParameter
            (
-               Parameters::PLUGIN_ENABLED_ID,
+               PLUGIN_ENABLED_ID,
                "Plugin Enabled",
-               Parameters::PLUGIN_ENABLED_DEFAULT,
+               PLUGIN_ENABLED_DEFAULT,
                [audioProcessor](bool value) { audioProcessor->audioEngine.setEnabled(value); },
                "Bypass the whole plugin."
             );
@@ -16,9 +16,9 @@ void Parameters::registerTempoParameters(PluginAudioProcessor* audioProcessor)
 {
     audioProcessor->registerParameter
            (
-               Parameters::TEMPO_VALUE_ID,
+               TEMPO_VALUE_ID,
                "Tempo",
-               Parameters::TEMPO_VALUE_DEFAULT,
+               TEMPO_VALUE_DEFAULT,
                20.f,
                200.f,
                [audioProcessor](float value) {
@@ -32,9 +32,9 @@ void Parameters::registerCrossfaderParameters(PluginAudioProcessor* audioProcess
 {
     audioProcessor->registerParameter
            (
-               Parameters::CROSSFADER_VALUE_ID,
+               CROSSFADER_VALUE_ID,
                "Crossfader",
-               Parameters::CROSSFADER_VALUE_DEFAULT,
+               CROSSFADER_VALUE_DEFAULT,
                0.f,
                1.f,
                [audioProcessor](float value) {
@@ -48,9 +48,9 @@ void Parameters::registerReverbParameters(PluginAudioProcessor* audioProcessor)
 {
     audioProcessor->registerParameter
          (
-             Parameters::REVERB_ENABLED_ID,
+             REVERB_ENABLED_ID,
              "Reverb Enabled",
-             Parameters::REVERB_ENABLED_DEFAULT,
+             REVERB_ENABLED_DEFAULT,
              [audioProcessor](bool value) {
                  audioProcessor->reverbProcess.setEnabled(value);
              },
@@ -58,10 +58,10 @@ void Parameters::registerReverbParameters(PluginAudioProcessor* audioProcessor)
          );
     audioProcessor->registerParameter
     (
-        Parameters::REVERB_SIZE_ID,
+        REVERB_SIZE_ID,
         "Reverb Size",
         "Size",
-        Parameters::REVERB_SIZE_DEFAULT,
+        REVERB_SIZE_DEFAULT,
         0.f,
         1.f,
         [audioProcessor](float value) {
@@ -71,10 +71,10 @@ void Parameters::registerReverbParameters(PluginAudioProcessor* audioProcessor)
     );
     audioProcessor->registerParameter
     (
-        Parameters::REVERB_WIDTH_ID,
+        REVERB_WIDTH_ID,
         "Reverb Width",
         "Width",
-        Parameters::REVERB_WIDTH_DEFAULT,
+        REVERB_WIDTH_DEFAULT,
         0.f,
         1.f,
         [audioProcessor](float value) {
@@ -84,10 +84,10 @@ void Parameters::registerReverbParameters(PluginAudioProcessor* audioProcessor)
     );
     audioProcessor->registerParameter
     (
-        Parameters::REVERB_HPF_ID,
+        REVERB_HPF_ID,
         "Reverb HPF",
         "High Pass",
-        Parameters::REVERB_HPF_DEFAULT,
+        REVERB_HPF_DEFAULT,
         20.f,
         20000.f,
         [audioProcessor](float value) { audioProcessor->reverbProcess.setHPF(value); },
@@ -95,10 +95,10 @@ void Parameters::registerReverbParameters(PluginAudioProcessor* audioProcessor)
     );
     audioProcessor->registerParameter
     (
-        Parameters::REVERB_LPF_ID,
+        REVERB_LPF_ID,
         "Reverb LPF",
         "Low Pass",
-        Parameters::REVERB_LPF_DEFAULT,
+        REVERB_LPF_DEFAULT,
         20.f,
         20000.f,
         [audioProcessor](float value) { audioProcessor->reverbProcess.setLPF(value); },
@@ -106,10 +106,10 @@ void Parameters::registerReverbParameters(PluginAudioProcessor* audioProcessor)
     );
     audioProcessor->registerParameter
     (
-        Parameters::REVERB_DRY_WET_ID,
+        REVERB_DRY_WET_ID,
         "Reverb Dry/Wet",
         "Dry / Wet",
-        Parameters::REVERB_DRY_WET_DEFAULT,
+        REVERB_DRY_WET_DEFAULT,
         0.f,
         1.f,
         [audioProcessor](float value) { audioProcessor->reverbProcess.setDryWet(value); },
@@ -121,9 +121,9 @@ void Parameters::registerDelayParameters(PluginAudioProcessor* audioProcessor)
 {
     audioProcessor->registerParameter
         (
-            Parameters::DELAY_ENABLED_ID,
+            DELAY_ENABLED_ID,
             "Delay Enabled",
-            Parameters::DELAY_ENABLED_DEFAULT,
+            DELAY_ENABLED_DEFAULT,
             [audioProcessor](bool value) {
                 audioProcessor->delayProcess.setEnabled(value);
             },
@@ -131,10 +131,10 @@ void Parameters::registerDelayParameters(PluginAudioProcessor* audioProcessor)
         );
     audioProcessor->registerParameter
     (
-        Parameters::DELAY_TIME_MS_ID,
+        DELAY_TIME_MS_ID,
         "Delay Time (ms)",
         "Time (ms)",
-        Parameters::DELAY_TIME_MS_DEFAULT,
+        DELAY_TIME_MS_DEFAULT,
         1.f,
         2000.f,
         [audioProcessor](float value) {
@@ -144,10 +144,10 @@ void Parameters::registerDelayParameters(PluginAudioProcessor* audioProcessor)
     );
     audioProcessor->registerParameter
     (
-        Parameters::DELAY_TIMING_ID,
+        DELAY_TIMING_ID,
         "Delay Timing",
         "Timing",
-        Parameters::DELAY_TIMING_DEFAULT,
+        DELAY_TIMING_DEFAULT,
         ndsp::Timing::NOTE_32,
         ndsp::Timing::NOTE_FOUR_STEP,
         [audioProcessor](int value) {
@@ -157,10 +157,10 @@ void Parameters::registerDelayParameters(PluginAudioProcessor* audioProcessor)
     );
     audioProcessor->registerParameter
     (
-        Parameters::DELAY_FEEDBACK_ID,
+        DELAY_FEEDBACK_ID,
         "Delay Feedback",
         "Feedback",
-        Parameters::DELAY_FEEDBACK_DEFAULT,
+        DELAY_FEEDBACK_DEFAULT,
         0.f,
         .95f,
         [audioProcessor](float value) {
@@ -170,10 +170,10 @@ void Parameters::registerDelayParameters(PluginAudioProcessor* audioProcessor)
     );
     audioProcessor->registerParameter
     (
-        Parameters::DELAY_HPF_ID,
+        DELAY_HPF_ID,
         "Delay HPF",
         "High Pass",
-        Parameters::DELAY_HPF_DEFAULT,
+        DELAY_HPF_DEFAULT,
         20.f,
         20000.f,
         [audioProcessor](float value) { audioProcessor->delayProcess.setHPF(value); },
@@ -181,10 +181,10 @@ void Parameters::registerDelayParameters(PluginAudioProcessor* audioProcessor)
     );
     audioProcessor->registerParameter
     (
-        Parameters::DELAY_LPF_ID,
+        DELAY_LPF_ID,
         "Delay LPF",
         "Low Pass",
-        Parameters::DELAY_LPF_DEFAULT,
+        DELAY_LPF_DEFAULT,
         20.f,
         20000.f,
         [audioProcessor](float value) { audioProcessor->delayProcess.setLPF(value); },
@@ -192,10 +192,10 @@ void Parameters::registerDelayParameters(PluginAudioProcessor* audioProcessor)
     );
     audioProcessor->registerParameter
     (
-        Parameters::DELAY_DRY_WET_ID,
+        DELAY_DRY_WET_ID,
         "Delay Dry/Wet",
         "Dry / Wet",
-        Parameters::DELAY_DRY_WET_DEFAULT,
+        DELAY_DRY_WET_DEFAULT,
         0.f,
         1.f,
         [audioProcessor](float value) { audioProcessor->delayProcess.setDryWet(value); },
@@ -207,9 +207,9 @@ void Parameters::registerPhaserParameters(PluginAudioProcessor* audioProcessor)
 {
     audioProcessor->registerParameter
     (
-        Parameters::PHASER_ENABLED_ID,
+        PHASER_ENABLED_ID,
         "Phaser Enabled",
-        Parameters::PHASER_ENABLED_DEFAULT,
+        PHASER_ENABLED_DEFAULT,
         [audioProcessor](bool value) {
             audioProcessor->phaserProcess.setEnabled(value);
         },
@@ -217,10 +217,10 @@ void Parameters::registerPhaserParameters(PluginAudioProcessor* audioProcessor)
     );
     audioProcessor->registerParameter
     (
-        Parameters::PHASER_RATE_ID,
+        PHASER_RATE_ID,
         "Phaser Rate",
         "Rate",
-        Parameters::PHASER_RATE_DEFAULT,
+        PHASER_RATE_DEFAULT,
         0.f,
         100.f,
         [audioProcessor](float value) {
@@ -230,10 +230,10 @@ void Parameters::registerPhaserParameters(PluginAudioProcessor* audioProcessor)
     );
     audioProcessor->registerParameter
     (
-        Parameters::PHASER_DEPTH_ID,
+        PHASER_DEPTH_ID,
         "Phaser Depth",
         "Depth",
-        Parameters::PHASER_DEPTH_DEFAULT,
+        PHASER_DEPTH_DEFAULT,
         0.f,
         1.f,
         [audioProcessor](float value) {
@@ -243,10 +243,10 @@ void Parameters::registerPhaserParameters(PluginAudioProcessor* audioProcessor)
     );
     audioProcessor->registerParameter
     (
-        Parameters::PHASER_HPF_ID,
+        PHASER_HPF_ID,
         "Phaser HPF",
         "High Pass",
-        Parameters::PHASER_HPF_DEFAULT,
+        PHASER_HPF_DEFAULT,
         20.f,
         20000.f,
         [audioProcessor](float value) { audioProcessor->phaserProcess.setHPF(value); },
@@ -254,10 +254,10 @@ void Parameters::registerPhaserParameters(PluginAudioProcessor* audioProcessor)
     );
     audioProcessor->registerParameter
     (
-        Parameters::PHASER_LPF_ID,
+        PHASER_LPF_ID,
         "Phaser LPF",
         "Low Pass",
-        Parameters::PHASER_LPF_DEFAULT,
+        PHASER_LPF_DEFAULT,
         20.f,
         20000.f,
         [audioProcessor](float value) { audioProcessor->phaserProcess.setLPF(value); },
@@ -265,10 +265,10 @@ void Parameters::registerPhaserParameters(PluginAudioProcessor* audioProcessor)
     );
     audioProcessor->registerParameter
     (
-        Parameters::PHASER_DRY_WET_ID,
+        PHASER_DRY_WET_ID,
         "Phaser Dry/Wet",
         "Dry / Wet",
-        Parameters::PHASER_DRY_WET_DEFAULT,
+        PHASER_DRY_WET_DEFAULT,
         0.f,
         1.f,
         [audioProcessor](float value) { audioProcessor->phaserProcess.setDryWet(value); },
@@ -280,9 +280,9 @@ void Parameters::registerChorusParameters(PluginAudioProcessor* audioProcessor)
 {
     audioProcessor->registerParameter
         (
-            Parameters::CHORUS_ENABLED_ID,
+            CHORUS_ENABLED_ID,
             "Chorus Enabled",
-            Parameters::CHORUS_ENABLED_DEFAULT,
+            CHORUS_ENABLED_DEFAULT,
             [audioProcessor](bool value) {
                 audioProcessor->chorusProcess.setEnabled(value);
             },
@@ -290,10 +290,10 @@ void Parameters::registerChorusParameters(PluginAudioProcessor* audioProcessor)
         );
     audioProcessor->registerParameter
     (
-        Parameters::CHORUS_RATE_ID,
+        CHORUS_RATE_ID,
         "Chorus Rate",
         "Rate",
-        Parameters::CHORUS_RATE_DEFAULT,
+        CHORUS_RATE_DEFAULT,
         0.f,
         100.f,
         [audioProcessor](float value) {
@@ -303,10 +303,10 @@ void Parameters::registerChorusParameters(PluginAudioProcessor* audioProcessor)
     );
     audioProcessor->registerParameter
     (
-        Parameters::CHORUS_DEPTH_ID,
+        CHORUS_DEPTH_ID,
         "Chorus Depth",
         "Depth",
-        Parameters::CHORUS_DEPTH_DEFAULT,
+        CHORUS_DEPTH_DEFAULT,
         0.f,
         1.f,
         [audioProcessor](float value) {
@@ -316,10 +316,10 @@ void Parameters::registerChorusParameters(PluginAudioProcessor* audioProcessor)
     );
     audioProcessor->registerParameter
     (
-        Parameters::CHORUS_HPF_ID,
+        CHORUS_HPF_ID,
         "Chorus HPF",
         "High Pass",
-        Parameters::CHORUS_HPF_DEFAULT,
+        CHORUS_HPF_DEFAULT,
         20.f,
         20000.f,
         [audioProcessor](float value) { audioProcessor->chorusProcess.setHPF(value); },
@@ -327,10 +327,10 @@ void Parameters::registerChorusParameters(PluginAudioProcessor* audioProcessor)
     );
     audioProcessor->registerParameter
     (
-        Parameters::CHORUS_LPF_ID,
+        CHORUS_LPF_ID,
         "Chorus LPF",
         "Low Pass",
-        Parameters::CHORUS_LPF_DEFAULT,
+        CHORUS_LPF_DEFAULT,
         20.f,
         20000.f,
         [audioProcessor](float value) { audioProcessor->chorusProcess.setLPF(value); },
@@ -338,10 +338,10 @@ void Parameters::registerChorusParameters(PluginAudioProcessor* audioProcessor)
     );
     audioProcessor->registerParameter
     (
-        Parameters::CHORUS_DRY_WET_ID,
+        CHORUS_DRY_WET_ID,
         "Chorus Dry/Wet",
         "Dry / Wet",
-        Parameters::CHORUS_DRY_WET_DEFAULT,
+        CHORUS_DRY_WET_DEFAULT,
         0.f,
         1.f,
         [audioProcessor](float value) { audioProcessor->chorusProcess.setDryWet(value); },
@@ -353,9 +353,9 @@ void Parameters::registerDJFilterParameters(PluginAudioProcessor* audioProcessor
 {
     audioProcessor->registerParameter
     (
-        Parameters::DJ_FILTER_ENABLED_ID,
+        DJ_FILTER_ENABLED_ID,
         "DJ Filter Enabled",
-        Parameters::DJ_FILTER_ENABLED_DEFAULT,
+        DJ_FILTER_ENABLED_DEFAULT,
         [audioProcessor](bool value) {
             audioProcessor->djFilterProcess.setEnabled(value);
         },
@@ -363,10 +363,10 @@ void Parameters::registerDJFilterParameters(PluginAudioProcessor* audioProcessor
     );
     audioProcessor->registerParameter
     (
-        Parameters::DJ_FILTER_VALUE_ID,
+        DJ_FILTER_VALUE_ID,
         "DJ Filter Value",
         "Value",
-        Parameters::DJ_FILTER_VALUE_DEFAULT,
+        DJ_FILTER_VALUE_DEFAULT,
         -1.f,
         1.f,
         [audioProcessor](float value) {
@@ -376,10 +376,10 @@ void Parameters::registerDJFilterParameters(PluginAudioProcessor* audioProcessor
     );
     audioProcessor->registerParameter
     (
-        Parameters::DJ_FILTER_Q_ID,
+        DJ_FILTER_Q_ID,
         "DJ Filter Resonance",
         "Res.",
-        Parameters::DJ_FILTER_Q_DEFAULT,
+        DJ_FILTER_Q_DEFAULT,
         .707f,
         10.f,
         [audioProcessor](float value) {
@@ -393,9 +393,9 @@ void Parameters::registerCompressorParameters(PluginAudioProcessor* audioProcess
 {
     audioProcessor->registerParameter
     (
-        Parameters::COMPRESSOR_ENABLED_ID,
+        COMPRESSOR_ENABLED_ID,
         "Phaser Enabled",
-        Parameters::COMPRESSOR_ENABLED_DEFAULT,
+        COMPRESSOR_ENABLED_DEFAULT,
         [audioProcessor](bool value) {
             audioProcessor->compressorProcess.setEnabled(value);
         },
@@ -403,10 +403,10 @@ void Parameters::registerCompressorParameters(PluginAudioProcessor* audioProcess
     );
     audioProcessor->registerParameter
     (
-        Parameters::COMPRESSOR_THRESHOLD_ID,
+        COMPRESSOR_THRESHOLD_ID,
         "Compressor Threshold",
         "Threshold",
-        Parameters::COMPRESSOR_THRESHOLD_DEFAULT,
+        COMPRESSOR_THRESHOLD_DEFAULT,
         -60.f,
         0.f,
         [audioProcessor](float value) {
@@ -416,10 +416,10 @@ void Parameters::registerCompressorParameters(PluginAudioProcessor* audioProcess
     );
     audioProcessor->registerParameter
     (
-        Parameters::COMPRESSOR_RATIO_ID,
+        COMPRESSOR_RATIO_ID,
         "Compressor Ratio",
         "Ratio",
-        Parameters::COMPRESSOR_RATIO_DEFAULT,
+        COMPRESSOR_RATIO_DEFAULT,
         1.f,
         20.f,
         [audioProcessor](float value) {
@@ -429,10 +429,10 @@ void Parameters::registerCompressorParameters(PluginAudioProcessor* audioProcess
     );
     audioProcessor->registerParameter
     (
-        Parameters::COMPRESSOR_ATTACK_ID,
+        COMPRESSOR_ATTACK_ID,
         "Compressor Attack",
         "Attack",
-        Parameters::COMPRESSOR_ATTACK_DEFAULT,
+        COMPRESSOR_ATTACK_DEFAULT,
         .1f,
         800.f,
         [audioProcessor](float value) { audioProcessor->compressorProcess.setAttack(value); },
@@ -440,10 +440,10 @@ void Parameters::registerCompressorParameters(PluginAudioProcessor* audioProcess
     );
     audioProcessor->registerParameter
     (
-        Parameters::COMPRESSOR_RELEASE_ID,
+        COMPRESSOR_RELEASE_ID,
         "Compressor Release",
         "Release",
-        Parameters::COMPRESSOR_RELEASE_DEFAULT,
+        COMPRESSOR_RELEASE_DEFAULT,
         .1f,
         800.f,
         [audioProcessor](float value) { audioProcessor->compressorProcess.setRelease(value); },
@@ -451,10 +451,10 @@ void Parameters::registerCompressorParameters(PluginAudioProcessor* audioProcess
     );
     audioProcessor->registerParameter
     (
-        Parameters::COMPRESSOR_DRY_WET_ID,
+        COMPRESSOR_DRY_WET_ID,
         "Compressor Dry/Wet",
         "Dry / Wet",
-        Parameters::COMPRESSOR_DRY_WET_DEFAULT,
+        COMPRESSOR_DRY_WET_DEFAULT,
         0.f,
         1.f,
         [audioProcessor](float value) { audioProcessor->compressorProcess.setDryWet(value); },
