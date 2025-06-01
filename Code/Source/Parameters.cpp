@@ -23,6 +23,8 @@ void Parameters::registerTempoParameters(PluginAudioProcessor* audioProcessor)
                200.f,
                [audioProcessor](float value) {
                    audioProcessor->delayProcess.setBPM(value);
+                   audioProcessor->phaserProcess.setBPM(value);
+                   audioProcessor->chorusProcess.setBPM(value);
                },
                "The tempo selection."
             );
@@ -221,10 +223,10 @@ void Parameters::registerPhaserParameters(PluginAudioProcessor* audioProcessor)
         "Phaser Rate",
         "Rate",
         PHASER_RATE_DEFAULT,
-        0.f,
-        100.f,
-        [audioProcessor](float value) {
-            audioProcessor->phaserProcess.setRate(value);
+        ndsp::Timing::NOTE_32,
+        ndsp::Timing::NOTE_FOUR_STEP,
+        [audioProcessor](int value) {
+            audioProcessor->phaserProcess.setRate(static_cast<ndsp::Timing::NoteTiming>(value));
         },
         "Phaser's rate."
     );
@@ -294,10 +296,10 @@ void Parameters::registerChorusParameters(PluginAudioProcessor* audioProcessor)
         "Chorus Rate",
         "Rate",
         CHORUS_RATE_DEFAULT,
-        0.f,
-        100.f,
-        [audioProcessor](float value) {
-            audioProcessor->chorusProcess.setRate(value);
+        ndsp::Timing::NOTE_32,
+        ndsp::Timing::NOTE_FOUR_STEP,
+        [audioProcessor](int value) {
+            audioProcessor->chorusProcess.setRate(static_cast<ndsp::Timing::NoteTiming>(value));
         },
         "Chorus's rate."
     );

@@ -56,9 +56,28 @@ void PhaserProcess::process(const juce::dsp::ProcessContextReplacing<float>& con
     _dryWetMixer.mixWetSamples(context.getOutputBlock() );
 }
 
+void PhaserProcess::setBPM(double value)
+{
+    _bpm = value;
+
+    if (_isSync) setRate(_timing);
+    else setRate(_rateInHz);
+}
+
 void PhaserProcess::setRate(float value)
 {
+    if (_isSync) return;
+
+    _rateInHz = value;
     _phaserProcess.setRate(value);
+}
+
+void PhaserProcess::setRate(Timing::NoteTiming timing)
+{
+    if (!_isSync) return;
+
+    _timing = timing;
+    _phaserProcess.setRate(Timing::getRate(_bpm, timing));
 }
 
 void PhaserProcess::setDepth(float value)
@@ -82,6 +101,12 @@ void PhaserProcess::setLPF(float value) const
 {
     *_lowPassFilter.state = *juce::dsp::IIR::Coefficients<float>::makeLowPass(_sampleRate, value, 1.0);
 }
+
+void PhaserProcess::setSync(bool isSync)
+{
+    _isSync = isSync;
+}
+
 
 }
 

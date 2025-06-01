@@ -56,9 +56,28 @@ void ChorusProcess::process(const juce::dsp::ProcessContextReplacing<float>& con
     _dryWetMixer.mixWetSamples(context.getOutputBlock());
 }
 
+void ChorusProcess::setBPM(double value)
+{
+    _bpm = value;
+
+    if (_isSync) setRate(_timing);
+    else setRate(_rateInHz);
+}
+
 void ChorusProcess::setRate(float value)
 {
+    if (_isSync) return;
+
+    _rateInHz = value;
     _chorusProcess.setRate(value);
+}
+
+void ChorusProcess::setRate(Timing::NoteTiming timing)
+{
+    if (!_isSync) return;
+
+    _timing = timing;
+    _chorusProcess.setRate(Timing::getRate(_bpm, timing));
 }
 
 void ChorusProcess::setDepth(float value)
@@ -81,6 +100,11 @@ void ChorusProcess::setHPF(float value) const
 void ChorusProcess::setLPF(float value) const
 {
     *_lowPassFilter.state = *juce::dsp::IIR::Coefficients<float>::makeLowPass(_sampleRate, value, 1.0);
+}
+
+void ChorusProcess::setSync(bool isSync)
+{
+    _isSync = isSync;
 }
 
 }

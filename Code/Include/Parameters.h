@@ -52,7 +52,7 @@ struct Parameters
     static constexpr char PHASER_ENABLED_ID[] = "phaser-enabled";
     static constexpr bool PHASER_ENABLED_DEFAULT = true;
     static constexpr char PHASER_RATE_ID[] = "phaser-rate";
-    static constexpr float PHASER_RATE_DEFAULT = .5f;
+    static constexpr int PHASER_RATE_DEFAULT = ndsp::Timing::NOTE_4;
     static constexpr char PHASER_DEPTH_ID[] = "phaser-depth";
     static constexpr float PHASER_DEPTH_DEFAULT = .5f;
     static constexpr char PHASER_HPF_ID[] = "phaser-hpf";
@@ -67,7 +67,7 @@ struct Parameters
     static constexpr char CHORUS_ENABLED_ID[] = "chorus-enabled";
     static constexpr bool CHORUS_ENABLED_DEFAULT = true;
     static constexpr char CHORUS_RATE_ID[] = "chorus-rate";
-    static constexpr float CHORUS_RATE_DEFAULT = .5f;
+    static constexpr int CHORUS_RATE_DEFAULT = ndsp::Timing::NOTE_4;
     static constexpr char CHORUS_DEPTH_ID[] = "chorus-depth";
     static constexpr float CHORUS_DEPTH_DEFAULT = .5f;
     static constexpr char CHORUS_HPF_ID[] = "chorus-hpf";

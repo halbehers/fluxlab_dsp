@@ -15,7 +15,7 @@ public:
     void paint(juce::Graphics&) override;
 
 private:
-    element::FrequencyDial _rate;
+    element::TimingDial _rate;
     element::PercentageDial _depth;
     element::FrequencyDial _highPass;
     element::FrequencyDial _lowPass;
