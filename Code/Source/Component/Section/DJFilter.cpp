@@ -29,4 +29,11 @@ void DJFilter::paint(juce::Graphics& g)
     Section::paint(g);
 }
 
+void DJFilter::bypassComponents(bool isBypassed)
+{
+    _value.setEnabled(!isBypassed);
+    _q.setEnabled(!isBypassed);
+}
+
+
 }

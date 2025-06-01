@@ -11,9 +11,6 @@ public:
     Tempo(const std::string& identifier, ndsp::ParameterManager& parameterManager);
     ~Tempo() override = default;
 
-    void paint(juce::Graphics&) override;
-    void resized() override;
-
 private:
     element::BPMSelector _selector;
 

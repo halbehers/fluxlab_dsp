@@ -19,7 +19,7 @@ void Parameters::registerTempoParameters(PluginAudioProcessor* audioProcessor)
                TEMPO_VALUE_ID,
                "Tempo",
                TEMPO_VALUE_DEFAULT,
-               20.f,
+               50.f,
                200.f,
                [audioProcessor](float value) {
                    audioProcessor->delayProcess.setBPM(value);

@@ -14,6 +14,8 @@ public:
 
     void paint(juce::Graphics&) override;
 
+    void bypassComponents(bool isBypassed) override;
+
 private:
     element::DJFilterDial _value;
     element::Dial _q;
