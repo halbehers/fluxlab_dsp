@@ -40,3 +40,4 @@ Builds/
 Libs/
 
 cmake-build-debug/
+cmake-build-ios/

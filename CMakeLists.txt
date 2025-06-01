@@ -57,9 +57,12 @@ endif()
 include(${CMAKE_DIR}/warnings.cmake)
 include(${CMAKE_DIR}/utils.cmake)
 
+juce_add_binary_data("${PLUGIN_TARGET_NAME}_Assets" SOURCES ${CMAKE_CURRENT_LIST_DIR}/Packaging/icon.iconset/icon_512x512@2x.png ${CMAKE_CURRENT_LIST_DIR}/Packaging/icon.iconset/icon_128x128.png)
+
 juce_add_plugin(
         ${PROJECT_NAME}
-        #ICON_BIG "${CMAKE_CURRENT_SOURCE_DIR}/packaging/icon.png"
+        ICON_BIG "${CMAKE_CURRENT_SOURCE_DIR}/Packaging/icon.iconset/icon_512x512@2x.png"
+        ICON_SMALL "${CMAKE_CURRENT_SOURCE_DIR}/Packaging/icon.iconset/icon_128x128.png"
         COMPANY_NAME "${COMPANY_NAME}"
         BUNDLE_ID "${BUNDLE_ID}"
         PLUGIN_MANUFACTURER_CODE "${MANUFACTURER_CODE}"
